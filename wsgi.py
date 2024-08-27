@@ -1,4 +1,4 @@
-from benefitsHub import app
+from benefitsHub import app, routes
 
 
 if __name__ == '__main__':
