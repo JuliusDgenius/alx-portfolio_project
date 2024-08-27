@@ -1,0 +1,12 @@
+run = "python3 wsgi.py"
+modules = ["python-3.10", "python-with-prybar-3.10"]
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "python3 wsgi.py"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+exposeLocalhost = true
