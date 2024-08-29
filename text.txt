@@ -1,0 +1,6 @@
+<h1>Welcome To BenefitsHub Nigeria.</h1><br>
+ <img src="../static/assets/img_2.jpeg" alt="BenefitsHub-Nigeria"><br>
+<h2>About BenefitsHub</h2>
+<p><b>BenefitsHub</b> is a website where you can explore and apply for all current benefits offered by goverment agencies in Nigeria to help sustain people who are currently unemployed. Information is crucial if you must become aware of government programs that you may benefit from, as of now, there is no single website that provides a well-curated list of available government benefits. <b>BenefitsHub</b> seeks to fill that vacuum by curating all government schemes and programs that are meant to assist citizens, especially unemployed citizens.</p>
+<p>It is your one-stop shop for everything empowerment, grants, low-interest loans and a wide range of other benefits offered by the government. We update you with all programs of government that are aimed as a palliative to cushion the effect of the global economic downturn.  Do not lose out on any government intervention because you missed the information.</p>
+<p>Simply create an account and login to apply and track the status of your application.</p>
