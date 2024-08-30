@@ -2,7 +2,7 @@ import re
 from benefitsHub import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect
 from benefitsHub.forms import RegistrationForm, LoginForm
-from benefitsHub.models.base_model import User, Benefit
+from benefitsHub.models.base_model import User
 
 # helper functions
 def linkify(text):
@@ -134,7 +134,3 @@ def login():
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
