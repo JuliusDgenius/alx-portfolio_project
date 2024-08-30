@@ -1,8 +1,21 @@
 from benefitsHub import app
 from flask import render_template, url_for, flash, redirect
+from flask_sqlalchemy import SQLAlchemy
 from forms import RegistrationForm, LoginForm
+import re
 
 app.config['SECRET_KEY'] = 'fdf898181ba60d610301084df980e442'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///benefitsHub.db'
+db = SQLAlchemy(app)
+
+# helper functions
+def linkify(text):
+    # Regular expression to find URLs
+    url_pattern = re.compile(r'(https?://\S+)')
+
+    # Replace URLs with clickable links
+    return url_pattern.sub(r'<a href="\1" target="_blank">\1</a>', text)
+
 
 benefits = [
     {'id': 1,
@@ -38,7 +51,7 @@ Grant Scheme (PCGS)',
      'date_posted': 'August 28, 2024',
      'end_date': 'August 28, 2024',
      'description': 'Micro grants description',
-     'requirement': 'Micro grants requirement',
+     'requirement': 'NIN is a major requirement for the Federal Government Grants and Loans Scheme. Loan applicants who have already filled the form should simply log in and update their loan application with their NIN. Grants Applicants, who already filled the form, should update their NIN by clicking this link: https://grant.fedgrantandloan.gov.ng/auth/nin/register',
      'image': '../static/assets/palliative_grant.jpeg',
      'link': 'https://www.fedgrantandloan.gov.ng/',
     },
@@ -84,6 +97,12 @@ Grant Scheme (PCGS)',
     },
 ]
 
+for benefit in benefits:
+    for key, value in benefit.items():
+        if key == "requirement" or key == "description":
+            value = linkify(value)
+        benefit[key] = value
+
 @app.route("/")
 @app.route("/home")
 def home():
@@ -115,3 +134,7 @@ def login():
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

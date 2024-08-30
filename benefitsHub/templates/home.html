@@ -4,7 +4,7 @@
         <h1>Welcome To BenefitsHub Nigeria.</h1><br>
         <div class="container-fluid">
             <!-- banner image  -->
-            <img src="../static/assets/img_2.jpeg" alt="BenefitsHub-Nigeria" class="img-fluid rounded"><br>
+            <img src="../static/assets/img_2.jpeg" alt="BenefitsHub-Nigeria" class="img-fluid banner"><br>
         </div>
         <h2>Check out some mouth-watering benefits below or click the explore benefits button to view all.
         </h2><br>
@@ -13,8 +13,8 @@
             <div class="col-12 col-md-6 mb-4">
                 <h2>{{ benefit.name }}</h2>
                 <img class="rounded article-img" src="{{ benefit.image }}" alt="benefit image">
-                <p>{{ benefit.description }}</p>
-                <p>{{ benefit.eligibility }}</p>
+                <p>{{ benefit.description | safe }}</p>
+                <p>{{ benefit.requirement | safe }}</p>
                <p> Posted on: <span>{{ benefit.date_posted }}</span><br>
                 Ends on: <span>{{ benefit.end_date }}</span></p>
                 <button data-link={{ benefit.link }} class="btn btn-primary apply-button">Apply</button>
