@@ -116,7 +116,7 @@ def explore_benefits():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegistrationForm()
-    if current_user.is_authenicated:
+    if current_user.is_authenticated:
         return redirect(url_for('home'))
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -129,7 +129,7 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    if current_user.is_authenicated:
+    if current_user.is_authenticated:
         return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
