@@ -1,5 +1,5 @@
 import re
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user
 from benefitsHub import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect
 from benefitsHub.forms import RegistrationForm, LoginForm
@@ -140,3 +140,8 @@ def login():
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
