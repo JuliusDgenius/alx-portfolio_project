@@ -1,4 +1,4 @@
-from benefitsHub.routes import db
+from benefitsHub import db
 from datetime import datetime
 
 

@@ -1,12 +1,8 @@
-from benefitsHub import app
-from flask import render_template, url_for, flash, redirect
-from flask_sqlalchemy import SQLAlchemy
-from forms import RegistrationForm, LoginForm
 import re
-
-app.config['SECRET_KEY'] = 'fdf898181ba60d610301084df980e442'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///benefitsHub.db'
-db = SQLAlchemy(app)
+from benefitsHub import app, db, bcrypt
+from flask import render_template, url_for, flash, redirect
+from benefitsHub.forms import RegistrationForm, LoginForm
+from benefitsHub.models.base_model import User, Benefit
 
 # helper functions
 def linkify(text):
@@ -120,8 +116,12 @@ def explore_benefits():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Account created for {form.username.data}!', 'success')
-        return redirect(url_for('home'))
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Welcome {user.username}! Your account has been created successfully! You can now login to see all your benefits.', 'success')
+        return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
 @app.route("/login", methods=["GET", "POST"])
