@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     profile_pic = db.Column(db.String(20), nullable=False, default='default.jpg')
     benefits = db.relationship('Benefit', backref='user', lazy=True)
+    posts = db.relationship('Post', backref='user', lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', {self.profile_pic})"
@@ -49,3 +50,7 @@ class Post(db.Model):
     content = db.Column(db.String(120), unique=True, nullable=False, default='')
     author = db.Column(db.String(60), nullable=False, default=None)
     posts = db.relationship('Post', backref='author', lazy=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, default=None)
+
+    def __repr__(self):
+        return f"Post('{self.title}', '{self.content}', '{self.author}')"
