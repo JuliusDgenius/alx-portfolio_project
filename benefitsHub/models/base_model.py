@@ -34,7 +34,7 @@ class Benefit(db.Model):
     benefit_end_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     benefit_status = db.Column(db.String(60), nullable=False, default=None)
     benefit_created_by = db.Column(db.String(60), nullable=False, default=None)
-    benefit_created_on = db.Column(db.String(60), nullable=False, default=None)
+    # benefit_created_on = db.Column(db.String(60), nullable=False, default=None)
     benefit_updated_by = db.Column(db.String(60), nullable=False, default=None)
     benefit_updated_on = db.Column(db.String(60), nullable=False, default=None)
     # FK to the user table
