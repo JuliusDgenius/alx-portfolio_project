@@ -1,5 +1,6 @@
 import re
 import secrets
+from PIL
 import os
 from flask_login import login_user, current_user, logout_user, login_required
 from benefitsHub import app, db, bcrypt
@@ -155,7 +156,11 @@ def save_picture(form_picture):
     _, file_extension = os.path.splitext(form_picture.filename)
     picture_filename = random_hex + file_extension
     picture_path = os.path.join(app.root_path, 'static/assets', picture_filename)
-    form_picture.save(picture_path)
+
+    output_size = (125, 125)
+    image = Image.open(form_picture)
+    image.thumbnail(output_size)
+    image.save(picture_path)
 
     return picture_filename
 
