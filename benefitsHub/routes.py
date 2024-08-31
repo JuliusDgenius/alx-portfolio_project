@@ -137,16 +137,16 @@ def account():
 @app.route('/benefit/new', methods=["GET", "POST"])
 @login_required
 def new_benefit():
-    """Flask route to create a new benefit"""
-    fmt = "%d-%m-%Y %H:%M:%S"
+    """Flask route to create a new benefit""" 
     form = BenefitForm()
-    try:
-        benefit_start_date = datetime.strptime(form.benefit_start_date.data, fmt)
-        benefit_end_date = datetime.strptime(form.benefit_end_date.data, fmt)
-        benefit_updated_on = datetime.strptime(form.benefit_updated_on.data, fmt)
-    except Exception as e:
-        print(f'{e}')
     if form.validate_on_submit():
+        fmt = "%d-%m-%Y %H:%M:%S"
+        try:
+            benefit_start_date = datetime.strptime(form.benefit_start_date.data, fmt)
+            benefit_end_date = datetime.strptime(form.benefit_end_date.data, fmt)
+            benefit_updated_on = datetime.strptime(form.benefit_updated_on.data, fmt)
+        except Exception as e:
+            print(f'{e}')
         benefit = Benefit(name=form.name.data,
                           description=form.description.data,
                           benefit_image=form.benefit_image.data,
