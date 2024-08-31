@@ -151,8 +151,8 @@ def new_benefit():
                           benefit_end_date=datetime.strptime(form.benefit_end_date.data, fmt),
                           benefit_status=form.benefit_status.data,
                           benefit_created_by=current_user.username,
-                          benefit_updated_on=datetime.strptime(form.benefit_updated_on.data, fmt)
-        print(benefit)
+                          benefit_updated_on=datetime.strptime(form.benefit_updated_on.data, fmt))
+    
         db.session.add(benefit)
         db.session.commit()
         flash(f'Benefit {form.name.data} has been created!', 'success')
