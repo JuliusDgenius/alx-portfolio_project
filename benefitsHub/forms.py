@@ -65,3 +65,10 @@ class BenefitForm(FlaskForm):
     benefit_updated_on = StringField('Benefit Updated On', validators=[DataRequired()])
 
     submit = SubmitField('Create Benefit')
+
+
+class MakePostForm(FlaskForm):
+    """Class to create a new post"""
+    title = StringField('Title', validators=[DataRequired()])
+    content = StringField('Content', validators=[DataRequired()])
+    submit = SubmitField('Post')

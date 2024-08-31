@@ -5,7 +5,7 @@ import os
 from flask_login import login_user, current_user, logout_user, login_required
 from benefitsHub import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, request
-from benefitsHub.forms import RegistrationForm, LoginForm, UpdateAccountForm, BenefitForm
+from benefitsHub.forms import RegistrationForm, LoginForm, UpdateAccountForm, BenefitForm, MakePostForm
 from benefitsHub.models.base_model import User
 
 # helper functions
@@ -192,3 +192,14 @@ def new_benefit():
         flash(f'Benefit {form.name.data} has been created!', 'success')
         return redirect(url_for('home'))
     return render_template('create_benefit.html', title='New Benefit', form=form)
+
+
+@app.route('/post/new', methods=["GET", "POST"])
+@login_required
+def new_post():
+    """Function to create a new post"""
+    form = MakePostForm()
+    if form.validate_on_submit():
+        flash(f'Post {form.title.data} has been created!', 'success')
+        return redirect(url_for('home'))
+    return render_template('create_post.html', title='New Post', form=form')
