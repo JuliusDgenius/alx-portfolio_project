@@ -1,4 +1,6 @@
 import re
+import secrets
+import os
 from flask_login import login_user, current_user, logout_user, login_required
 from benefitsHub import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, request
@@ -147,11 +149,24 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+def save_picture(form_picture):
+    """Helper function to save profile pictures"""
+    random_hex = secrets.token_hex(8)
+    _, file_extension = os.path.splitext(form_picture.filename)
+    picture_filename = random_hex + file_extension
+    picture_path = os.path.join(app.root_path, 'static/assets', picture_filename)
+    form_picture.save(picture_path)
+
+    return picture_filename
+
 @app.route('/account', methods=["GET", "POST"])
 @login_required # login is required to access this route.
 def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
+        if form.update_picture.data:
+            picture_file = save_picture(form.update_picture.data)
+            current_user.profile_pic = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
