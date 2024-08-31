@@ -1,6 +1,6 @@
 import re
 import secrets
-import PIL
+from PIL import Image
 import os
 from flask_login import login_user, current_user, logout_user, login_required
 from benefitsHub import app, db, bcrypt
