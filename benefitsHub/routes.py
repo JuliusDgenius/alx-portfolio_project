@@ -140,7 +140,7 @@ def new_benefit():
     """Flask route to create a new benefit""" 
     form = BenefitForm()
     if form.validate_on_submit():
-        fmt = "%d-%m-%Y %H:%M:%S"
+        fmt = "%d-%m-%Y"
         benefit = Benefit(name=form.name.data,
                           description=form.description.data,
                           benefit_image=form.benefit_image.data,
