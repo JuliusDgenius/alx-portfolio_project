@@ -13,7 +13,9 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     profile_pic = db.Column(db.String(20), nullable=False, default='default.jpg')
+    # Relationship with benefits table
     benefits = db.relationship('Benefit', backref='user', lazy=True)
+    # Relationship with posts table
     posts = db.relationship('Post', backref='user', lazy=True)
 
     def __repr__(self):
@@ -34,8 +36,10 @@ class Benefit(db.Model):
     benefit_created_by = db.Column(db.String(60), nullable=False, default=None)
     benefit_created_on = db.Column(db.String(60), nullable=False, default=None)
     benefit_updated_by = db.Column(db.String(60), nullable=False, default=None)
+    # Defines the relationship between the benefit and the user
     benefit_updated_on = db.Column(db.String(60), nullable=False, default=None)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, default=None)
+    # FK to the user table
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return f"Benefit('{self.name}', '{self.benefit_duration}',\
@@ -49,8 +53,10 @@ class Post(db.Model):
     title = db.Column(db.String(20), unique=True, nullable=False)
     content = db.Column(db.String(120), unique=True, nullable=False, default='')
     author = db.Column(db.String(60), nullable=False, default=None)
+    # Foreign key to User model
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    # Relationship with user table
     posts = db.relationship('Post', backref='author', lazy=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, default=None)
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.content}', '{self.author}')"
