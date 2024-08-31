@@ -144,7 +144,7 @@ def new_benefit():
         benefit = Benefit(name=form.name.data,
                           description=form.description.data,
                           # benefit_image=form.benefit_image.data,
-                          benefit_requirement=form.benefit_requirement.data,
+                          # benefit_requirement=form.benefit_requirement.data,
                           benefit_duration=form.benefit_duration.data,
                           benefit_link=form.benefit_link.data,
                           benefit_start_date=datetime.strptime(form.benefit_start_date.data, fmt),
