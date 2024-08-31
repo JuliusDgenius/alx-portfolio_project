@@ -63,3 +63,5 @@ class BenefitForm(FlaskForm):
     benefit_status = StringField('Benefit Status', validators=[DataRequired()])
     benefit_created_by = StringField('Benefit Created By', validators=[DataRequired()])
     benefit_updated_on = StringField('Benefit Updated On', validators=[DataRequired()])
+
+    submit = SubmitField('Create Benefit')
