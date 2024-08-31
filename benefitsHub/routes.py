@@ -141,23 +141,17 @@ def new_benefit():
     form = BenefitForm()
     if form.validate_on_submit():
         fmt = "%d-%m-%Y %H:%M:%S"
-        try:
-            benefit_start_date = datetime.strptime(form.benefit_start_date.data, fmt)
-            benefit_end_date = datetime.strptime(form.benefit_end_date.data, fmt)
-            benefit_updated_on = datetime.strptime(form.benefit_updated_on.data, fmt)
-        except Exception as e:
-            print(f'{e}')
         benefit = Benefit(name=form.name.data,
                           description=form.description.data,
                           benefit_image=form.benefit_image.data,
                           benefit_requirement=form.benefit_requirement.data,
                           benefit_duration=form.benefit_duration.data,
                           benefit_link=form.benefit_link.data,
-                          benefit_start_date=benefit_start_date,
-                          benefit_end_date=benefit_end_date,
+                          benefit_start_date=datetime.strptime(form.benefit_start_date.data, fmt),
+                          benefit_end_date=datetime.strptime(form.benefit_end_date.data, fmt),
                           benefit_status=form.benefit_status.data,
                           benefit_created_by=current_user.username,
-                          benefit_updated_on=benefit_updated_on)
+                          benefit_updated_on=datetime.strptime(form.benefit_updated_on.data, fmt)
         print(benefit)
         db.session.add(benefit)
         db.session.commit()
