@@ -151,7 +151,7 @@ def new_benefit():
                           benefit_end_date=datetime.strptime(form.benefit_end_date.data, fmt),
                           benefit_status=form.benefit_status.data,
                           benefit_created_by=current_user.username,
-                          benefit_updated_on=datetime.strptime(form.benefit_updated_on.data, fmt)
+                          benefit_updated_on=datetime.strptime(form.benefit_updated_on.data, fmt),
                           user_id=current_user.id)
     
         db.session.add(benefit)
