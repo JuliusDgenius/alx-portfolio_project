@@ -48,15 +48,15 @@ class Benefit(db.Model):
                         '{self.benefit_created_by}', '{self.benefit_updated_on}')"
 
 
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(20), unique=True, nullable=False)
-    content = db.Column(db.String(120), unique=True, nullable=False, default='')
-    author = db.Column(db.String(60), nullable=False, default=None)
-    # Foreign key to User model
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    # Relationship with user table
-    posts = db.relationship('Post', backref='author', lazy=True)
+# class Post(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     title = db.Column(db.String(20), unique=True, nullable=False)
+#     content = db.Column(db.String(120), unique=True, nullable=False, default='')
+#     author = db.Column(db.String(60), nullable=False, default=None)
+#     # Foreign key to User model
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+#     # Relationship with user table
+#     posts = db.relationship('Post', backref='author', lazy=True)
 
-    def __repr__(self):
-        return f"Post('{self.title}', '{self.content}', '{self.author}')"
+#     def __repr__(self):
+#         return f"Post('{self.title}', '{self.content}', '{self.author}')"
