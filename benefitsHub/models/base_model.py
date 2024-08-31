@@ -36,7 +36,6 @@ class Benefit(db.Model):
     benefit_created_by = db.Column(db.String(60), nullable=False, default=None)
     benefit_created_on = db.Column(db.String(60), nullable=False, default=None)
     benefit_updated_by = db.Column(db.String(60), nullable=False, default=None)
-    # Defines the relationship between the benefit and the user
     benefit_updated_on = db.Column(db.String(60), nullable=False, default=None)
     # FK to the user table
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -55,8 +54,6 @@ class Post(db.Model):
     author = db.Column(db.String(60), nullable=False, default=None)
     # Foreign key to User model
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    # Relationship with user table
-    posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.content}', '{self.author}')"
