@@ -43,8 +43,8 @@
                   <div class="form-group">
                     {{ form.update_picture.label(class="form-control-label") }}
                     {{ form.update_picture(class="form-control-file") }}
-                    {% if form.picture.errors %}
-                      {% for error in form.picture.errors %}
+                    {% if form.update_picture.errors %}
+                      {% for error in form.update_picture.errors %}
                           <span class="text-danger">{{ error }}</span><br>
                       {% endfor %}
                     {% endif %}
