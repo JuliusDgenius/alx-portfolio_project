@@ -41,3 +41,11 @@ class Benefit(db.Model):
                         '{self.benefit_start_date}',\
                         '{self.benefit_end_date}', '{self.benefit_status}',\
                         '{self.benefit_created_by}', '{self.benefit_updated_on}')"
+
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(20), unique=True, nullable=False)
+    content = db.Column(db.String(120), unique=True, nullable=False, default='')
+    author = db.Column(db.String(60), nullable=False, default=None)
+    posts = db.relationship('Post', backref='author', lazy=True)

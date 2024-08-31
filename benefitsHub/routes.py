@@ -6,7 +6,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from benefitsHub import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, request
 from benefitsHub.forms import RegistrationForm, LoginForm, UpdateAccountForm, BenefitForm, MakePostForm
-from benefitsHub.models.base_model import User
+from benefitsHub.models.base_model import User, Benefit, Post
 
 # helper functions
 def linkify(text):
@@ -18,95 +18,37 @@ def linkify(text):
     return url_pattern.sub(r'<a href="\1" target="_blank">\1</a>', text)
 
 
-benefits = [
-    {'id': 1,
-     'name': 'Npower',
-     'date_posted': 'August 28, 2024',
-     'end_date': 'August 28, 2024',
-     'description': 'Npower description',
-     'eligibility': 'Npower requirement',
-     'image': '../static/assets/npower2.jpeg',
-     'link': 'https://npower-fmhds-gov-ng.web.app/',
-    },
-    {'id': 2,
-     'name': '3MTT',
-     'date_posted': 'August 28, 2024',
-      'end_date': 'August 28, 2024',
-     'description': '3MTT description',
-     'requirement': '3MTT requirement',
-     'image': '../static/assets/3mtt.jpeg',
-     'link': 'https://3mtt.nitda.gov.ng/',
-    },
-    {'id': 3,
-     'name': 'Student Loan',
-     'date_posted': 'August 28, 2024',
-      'end_date': 'August 28, 2024',
-     'description': 'Student Loan description',
-     'requirement': 'Student Loan requirement',
-     'image': '../static/assets/student_loan.jpeg',
-     'link': 'https://portal.nelf.gov.ng/',
-    },
-    {'id': 4,
-     'name': 'Presidential Conditional\
-Grant Scheme (PCGS)',
-     'date_posted': 'August 28, 2024',
-     'end_date': 'August 28, 2024',
-     'description': 'Micro grants description',
-     'requirement': 'NIN is a major requirement for the Federal Government Grants and Loans Scheme. Loan applicants who have already filled the form should simply log in and update their loan application with their NIN. Grants Applicants, who already filled the form, should update their NIN by clicking this link: https://grant.fedgrantandloan.gov.ng/auth/nin/register',
-     'image': '../static/assets/palliative_grant.jpeg',
-     'link': 'https://www.fedgrantandloan.gov.ng/',
-    },
-    {'id': 4,
-     'name': 'Presidential Conditional\
-Grant Scheme (PCGS)',
-     'date_posted': 'August 28, 2024',
-     'end_date': 'August 28, 2024',
-     'description': 'Micro grants description',
-     'requirement': 'Micro grants requirement',
-     'image': '../static/assets/palliative_grant.jpeg',
-     'link': 'https://www.fedgrantandloan.gov.ng/',
-    },
-    {'id': 4,
-     'name': 'Presidential Conditional\
-Grant Scheme (PCGS)',
-     'date_posted': 'August 28, 2024',
-     'end_date': 'August 28, 2024',
-     'description': 'Micro grants description',
-     'requirement': 'Micro grants requirement',
-     'image': '../static/assets/palliative_grant.jpeg',
-     'link': 'https://www.fedgrantandloan.gov.ng/',
-    },
-    {'id': 4,
-     'name': 'Presidential Conditional\
-Grant Scheme (PCGS)',
-     'date_posted': 'August 28, 2024',
-     'end_date': 'August 28, 2024',
-     'description': 'Micro grants description',
-     'requirement': 'Micro grants requirement',
-     'image': '../static/assets/palliative_grant.jpeg',
-     'link': 'https://www.fedgrantandloan.gov.ng/',
-    },
-    {'id': 4,
-     'name': 'Presidential Conditional\
-Grant Scheme (PCGS)',
-     'date_posted': 'August 28, 2024',
-     'end_date': 'August 28, 2024',
-     'description': 'Micro grants description',
-     'requirement': 'Micro grants requirement',
-     'image': '../static/assets/palliative_grant.jpeg',
-     'link': 'https://www.fedgrantandloan.gov.ng/',
-    },
-]
+# benefits = [
+#     {'id': 1,
+#      'name': 'Npower',
+#      'date_posted': 'August 28, 2024',
+#      'end_date': 'August 28, 2024',
+#      'description': 'Npower description',
+#      'eligibility': 'Npower requirement',
+#      'image': '../static/assets/npower2.jpeg',
+#      'link': 'https://npower-fmhds-gov-ng.web.app/',
+#     },
+#     {'id': 2,
+#      'name': '3MTT',
+#      'date_posted': 'August 28, 2024',
+#       'end_date': 'August 28, 2024',
+#      'description': '3MTT description',
+#      'requirement': '3MTT requirement',
+#      'image': '../static/assets/3mtt.jpeg',
+#      'link': 'https://3mtt.nitda.gov.ng/',
+#     },
+# ]
 
-for benefit in benefits:
-    for key, value in benefit.items():
-        if key == "requirement" or key == "description":
-            value = linkify(value)
-        benefit[key] = value
+# for benefit in benefits:
+#     for key, value in benefit.items():
+#         if key == "requirement" or key == "description":
+#             value = linkify(value)
+#         benefit[key] = value
 
 @app.route("/")
 @app.route("/home")
 def home():
+    benefits = Benefit.query.all()
     return render_template('home.html', benefits=benefits)
 
 @app.route("/about")
@@ -115,7 +57,14 @@ def about():
 
 @app.route("/explore_benefits")
 def explore_benefits():
+    benefits = Benefit.query.all()
     return render_template('explore_benefits.html', benefits=benefits, title='Explore Benefits')
+
+@app.route("/view_posts", methods=['GET', 'POST'])
+def view_posts():
+    """Flask route to view posts made by users"""
+    posts = Post.query.all()
+    return render_template('view_posts.html', posts=posts, title='View Posts')
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -189,6 +138,19 @@ def account():
 def new_benefit():
     form = BenefitForm()
     if form.validate_on_submit():
+        benefit = Benefit(name=form.name.data,
+                          description=form.description.data,
+                          benefit_image=form.benefit_image.data,
+                          benefit_requirement=form.benefit_requirement.data,
+                          benefit_duration=form.benefit_duration.data,
+                          benefit_link=form.benefit_link.data,
+                          benefit_start_date=form.benefit_start_date.data,
+                          benefit_end_date=form.benefit_end_date.data,
+                          benefit_status=form.benefit_status.data,
+                          benefit_created_by=current_user.username,
+                          benefit_updated_on=form.benefit_updated_on.data)
+        db.session.add(benefit)
+        db.session.commit()
         flash(f'Benefit {form.name.data} has been created!', 'success')
         return redirect(url_for('home'))
     return render_template('create_benefit.html', title='New Benefit', form=form)
@@ -200,6 +162,10 @@ def new_post():
     """Function to create a new post"""
     form = MakePostForm()
     if form.validate_on_submit():
+        post = Post(title=form.title.data, content=form.content.data,
+                    author=current_user)
+        db.session.add(post)
+        db.session.commit()
         flash(f'Post {form.title.data} has been created!', 'success')
         return redirect(url_for('home'))
     return render_template('create_post.html', title='New Post', form=form)
