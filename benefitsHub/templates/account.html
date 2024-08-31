@@ -1,4 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>{{ current_user.username }}'s Account</h2>    
+    <div class="section-content">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pic') }}" alt="User profile picture">
+        <div class="media-body">
+          <h2 class="account-heading">{{ current_user.username }} </h2>
+          <p class="text-secondary">{{ current_user.email }}</p>
+        </div>
+      </div>
+      <!-- FORM HERE -->
+    </div>    
 {% endblock content %}

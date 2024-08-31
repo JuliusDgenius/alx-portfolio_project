@@ -150,4 +150,5 @@ def logout():
 @app.route('/account')
 @login_required # login is required to access this route.
 def account():
-    return render_template('account.html', title='Account')
+    profile_pic = url_for('static', filename='static' + current_user.profile_pic)
+    return render_template('account.html', title='Account', profile_pic=profile_pic)
