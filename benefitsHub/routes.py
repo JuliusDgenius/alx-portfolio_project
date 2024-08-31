@@ -2,7 +2,7 @@ import re
 from flask_login import login_user, current_user, logout_user, login_required
 from benefitsHub import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, request
-from benefitsHub.forms import RegistrationForm, LoginForm
+from benefitsHub.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from benefitsHub.models.base_model import User
 
 # helper functions
@@ -150,5 +150,6 @@ def logout():
 @app.route('/account')
 @login_required # login is required to access this route.
 def account():
+    form = UpdateAccountForm()
     profile_pic = url_for('static', filename='assets/' + current_user.profile_pic)
-    return render_template('account.html', title='Account', profile_pic=profile_pic)
+    return render_template('account.html', title='Account', profile_pic=profile_pic, form=form)
