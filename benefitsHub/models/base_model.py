@@ -26,7 +26,7 @@ class Benefit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), unique=True, nullable=False)
     description = db.Column(db.String(120), nullable=False, default='')
-    benefit_image = db.Column(db.String(20), nullable=True, default='default.jpg')
+    benefit_image = db.Column(db.String(60), nullable=True, default='default.jpg')
     benefit_requirement = db.Column(db.String(120), nullable=True, default='')
     benefit_duration = db.Column(db.Integer, nullable=False)
     benefit_link = db.Column(db.String(60), nullable=False)
