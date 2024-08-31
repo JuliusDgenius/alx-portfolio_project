@@ -48,3 +48,18 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('That email is taken. Please choose a different one.')
+
+
+class BenefitForm(FlaskForm):
+    """Class to create a new benefit"""
+    name = StringField('Name', validators=[DataRequired()])
+    description = StringField('Description', validators=[DataRequired()])
+    benefit_image = FileField('Benefit Image', validators=[FileAllowed(['jpg', 'png'])])
+    benefit_requirement = StringField('Benefit Requirement', validators=[DataRequired()])
+    benefit_duration = StringField('Benefit Duration', validators=[DataRequired()])
+    benefit_link = StringField('Benefit Link', validators=[DataRequired()])
+    benefit_start_date = StringField('Benefit Start Date', validators=[DataRequired()])
+    benefit_end_date = StringField('Benefit End Date', validators=[DataRequired()])
+    benefit_status = StringField('Benefit Status', validators=[DataRequired()])
+    benefit_created_by = StringField('Benefit Created By', validators=[DataRequired()])
+    benefit_updated_on = StringField('Benefit Updated On', validators=[DataRequired()])

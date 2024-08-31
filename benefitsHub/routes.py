@@ -5,11 +5,12 @@ import os
 from flask_login import login_user, current_user, logout_user, login_required
 from benefitsHub import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, request
-from benefitsHub.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from benefitsHub.forms import RegistrationForm, LoginForm, UpdateAccountForm, BenefitForm
 from benefitsHub.models.base_model import User
 
 # helper functions
 def linkify(text):
+    """Helper function to find URLs in text and turn them into clickable links"""
     # Regular expression to find URLs
     url_pattern = re.compile(r'(https?://\S+)')
 
@@ -182,3 +183,12 @@ def account():
         form.email.data = current_user.email
     profile_pic = url_for('static', filename='assets/' + current_user.profile_pic)
     return render_template('account.html', title='Account', profile_pic=profile_pic, form=form)
+
+@app.route('/benefit/new', methods=["GET", "POST"])
+@login_required
+def new_benefit():
+    form = BenefitForm()
+    if form.validate_on_submit():
+        flash(f'Benefit {form.name.data} has been created!', 'success')
+        return redirect(url_for('home'))
+    return render_template('create_benefit.html', title='New Benefit', form=form)
