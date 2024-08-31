@@ -138,8 +138,11 @@ def account():
 @login_required
 def new_benefit():
     """Flask route to create a new benefit"""
-    fmt = "%Y-%m-%d %H:%M:%S"
+    fmt = "%d-%m-%Y %H:%M:%S"
     form = BenefitForm()
+    benefit_start_date = datetime.strptime(form.benefit_start_date.data, fmt)
+    benefit_end_date = datetime.strptime(form.benefit_end_date.data, fmt)
+    benefit_updated_on = datetime.strptime(form.benefit_updated_on.data, fmt)
     if form.validate_on_submit():
         benefit = Benefit(name=form.name.data,
                           description=form.description.data,
@@ -147,11 +150,11 @@ def new_benefit():
                           benefit_requirement=form.benefit_requirement.data,
                           benefit_duration=form.benefit_duration.data,
                           benefit_link=form.benefit_link.data,
-                          benefit_start_date=datetime.strptime(form.benefit_start_date.data, fmt),
-                          benefit_end_date=datetime.strptime(form.benefit_end_date.data, fmt),
+                          benefit_start_date=benefit_start_date,
+                          benefit_end_date=benefit_end_date,
                           benefit_status=form.benefit_status.data,
                           benefit_created_by=current_user.username,
-                          benefit_updated_on=datetime.strptime(form.benefit_updated_on.data, fmt)
+                          benefit_updated_on=benefit_updated_on
         db.session.add(benefit)
         db.session.commit()
         flash(f'Benefit {form.name.data} has been created!', 'success')
