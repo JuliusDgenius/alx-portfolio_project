@@ -35,8 +35,8 @@ class Benefit(db.Model):
     benefit_status = db.Column(db.String(60), nullable=False, default=None)
     benefit_created_by = db.Column(db.String(60), nullable=False, default=None)
     benefit_created_on = db.Column(db.String(60), nullable=False, default=datetime.utcnow())
-    benefit_updated_by = db.Column(db.String(60), nullable=False, default=None)
-    benefit_updated_on = db.Column(db.String(60), nullable=False, default=None)
+    benefit_updated_by = db.Column(db.String(60), nullable=False, default='')
+    benefit_updated_on = db.Column(db.String(60), nullable=False, default=datetime.utcnow())
     # FK to the user table
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
