@@ -140,9 +140,12 @@ def new_benefit():
     """Flask route to create a new benefit"""
     fmt = "%d-%m-%Y %H:%M:%S"
     form = BenefitForm()
-    benefit_start_date = datetime.strptime(form.benefit_start_date.data, fmt)
-    benefit_end_date = datetime.strptime(form.benefit_end_date.data, fmt)
-    benefit_updated_on = datetime.strptime(form.benefit_updated_on.data, fmt)
+    try:
+        benefit_start_date = datetime.strptime(form.benefit_start_date.data, fmt)
+        benefit_end_date = datetime.strptime(form.benefit_end_date.data, fmt)
+        benefit_updated_on = datetime.strptime(form.benefit_updated_on.data, fmt)
+    except Exception as e:
+        print(f'{e}')
     if form.validate_on_submit():
         benefit = Benefit(name=form.name.data,
                           description=form.description.data,
