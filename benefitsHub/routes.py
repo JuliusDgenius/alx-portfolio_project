@@ -1,3 +1,4 @@
+from datetime import datetime
 import re
 import secrets
 from PIL import Image
@@ -136,6 +137,8 @@ def account():
 @app.route('/benefit/new', methods=["GET", "POST"])
 @login_required
 def new_benefit():
+    """Flask route to create a new benefit"""
+    fmt = "%Y-%m-%d %H:%M:%S"
     form = BenefitForm()
     if form.validate_on_submit():
         benefit = Benefit(name=form.name.data,
@@ -144,11 +147,11 @@ def new_benefit():
                           benefit_requirement=form.benefit_requirement.data,
                           benefit_duration=form.benefit_duration.data,
                           benefit_link=form.benefit_link.data,
-                          benefit_start_date=form.benefit_start_date.data,
-                          benefit_end_date=form.benefit_end_date.data,
+                          benefit_start_date=datetime.strptime(form.benefit_start_date.data, fmt),
+                          benefit_end_date=datetime.strptime(form.benefit_end_date.data, fmt),
                           benefit_status=form.benefit_status.data,
                           benefit_created_by=current_user.username,
-                          benefit_updated_on=form.benefit_updated_on.data)
+                          benefit_updated_on=datetime.strptime(form.benefit_updated_on.data, fmt)
         db.session.add(benefit)
         db.session.commit()
         flash(f'Benefit {form.name.data} has been created!', 'success')
