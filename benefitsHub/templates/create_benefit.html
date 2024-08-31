@@ -139,14 +139,14 @@
                <div class="form-group">
                    {{ form.benefit_updated_on.label(class="form-control-label") }}
                    {% if form.benefit_upated_on.errors %}
-                           {{ form.benefit_upated_on(class="form-control form-control-lg is-invalid") }}
+                           {{ form.benefit_updated_on(class="form-control form-control-lg is-invalid") }}
                            <div class="invalid-feedback">
-                               {% for error in form.benefit_upated_on.errors %}
+                               {% for error in form.benefit_updated_on.errors %}
                                    <span>{{ error }}</span>
                                {% endfor %}
                            </div>
                        {% else %}
-                           {{ form.benefit_upated_on(class="form-control form-control-lg") }}
+                           {{ form.benefit_updated_on(class="form-control form-control-lg") }}
                        {% endif %}
                </div>
            </fieldset>
