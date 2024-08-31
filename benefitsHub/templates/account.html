@@ -2,7 +2,7 @@
 {% block content %}
     <div class="section-content">
       <div class="media">
-        <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pic') }}" alt="User profile picture">
+        <img class="rounded-circle account-img" src="{{ url_for('static', filename='assets/default.jpeg') }}" alt="User profile picture">
         <div class="media-body">
           <h2 class="account-heading">{{ current_user.username }} </h2>
           <p class="text-secondary">{{ current_user.email }}</p>
