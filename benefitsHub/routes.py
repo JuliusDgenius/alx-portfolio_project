@@ -46,11 +46,35 @@ def linkify(text):
 #             value = linkify(value)
 #         benefit[key] = value
 
+def save_picture(form_picture):
+    """Helper function to save profile pictures"""
+    random_hex = secrets.token_hex(8)
+    _, file_extension = os.path.splitext(form_picture.filename)
+    picture_filename = random_hex + file_extension
+    picture_path = os.path.join(app.root_path, 'static/assets', picture_filename)
+
+    output_size = (125, 125)
+    image = Image.open(form_picture)
+    image.thumbnail(output_size)
+    image.save(picture_path)
+
+    return picture_filename
+
 @app.route("/")
 @app.route("/home")
 def home():
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        if form.update_picture.data:
+            picture_file = save_picture(form.update_picture.data)
+            current_user.profile_pic = picture_file
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('account'))
+    profile_pic = url_for('static', filename='assets/' + current_user.profile_pic)
+    profile_pic = url_for('static', filename='assets/' + current_user.profile_pic)
     benefits = Benefit.query.all()
-    return render_template('home.html', benefits=benefits)
+    return render_template('home.html', profile_pic=profile_pic, benefits=benefits)
 
 @app.route("/about")
 def about():
@@ -59,7 +83,17 @@ def about():
 @app.route("/explore_benefits")
 def explore_benefits():
     benefits = Benefit.query.all()
-    return render_template('explore_benefits.html', benefits=benefits, title='Explore Benefits')
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        if form.update_picture.data:
+            picture_file = save_picture(form.update_picture.data)
+            current_user.profile_pic = picture_file
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('account'))
+    profile_pic = url_for('static', filename='assets/' + current_user.profile_pic)
+    profile_pic = url_for('static', filename='assets/' + current_user.profile_pic)
+    return render_template('explore_benefits.html', profile_pic=profile_pic, benefits=benefits, title='Explore Benefits')
 
 @app.route("/view_posts", methods=['GET', 'POST'])
 def view_posts():
@@ -100,20 +134,6 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
-
-def save_picture(form_picture):
-    """Helper function to save profile pictures"""
-    random_hex = secrets.token_hex(8)
-    _, file_extension = os.path.splitext(form_picture.filename)
-    picture_filename = random_hex + file_extension
-    picture_path = os.path.join(app.root_path, 'static/assets', picture_filename)
-
-    output_size = (125, 125)
-    image = Image.open(form_picture)
-    image.thumbnail(output_size)
-    image.save(picture_path)
-
-    return picture_filename
 
 @app.route('/account', methods=["GET", "POST"])
 @login_required # login is required to access this route.

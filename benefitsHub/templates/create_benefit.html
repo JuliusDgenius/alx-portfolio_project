@@ -45,7 +45,7 @@
                            {{ form.benefit_requirement(class="form-control form-control-lg") }}
                        {% endif %}
                </div>
-               <!-- <div class="form-group">
+               <div class="form-group">
                    {{ form.benefit_image.label(class="form-control-label") }}
                    {% if form.benefit_image.errors %}
                            {{ form.benefit_image(class="form-control form-control-lg is-invalid") }}
@@ -57,12 +57,7 @@
                        {% else %}
                            {{ form.benefit_image(class="form-control form-control-lg") }}
                        {% endif %}
-               </div> -->
-               <form method="POST" action="/upload" enctype="multipart/form-data">
-                   <label for="file">Choose file:</label>
-                   <input type="file" name="file" id="file" required>
-                   <button type="submit">Upload</button>
-               </form>
+               </div>
                <div class="form-group">
                    {{ form.benefit_duration.label(class="form-control-label") }}
                    {% if form.benefit_duration.errors %}
