@@ -14,7 +14,9 @@
             {% for benefit in benefits[:4] %}
                 <div class="col-12 col-md-6 mb-4">
                     <h2>{{ benefit.name }}</h2>
-                    <!-- <img class="rounded article-img" src="{{ url_for('static', filename='assets/') }}" alt="benefit image">  -->
+                    <div class="media">
+                        <img class="rounded-circle account-img" src="{{ profile_pic }}" alt="User profile picture">
+                      </div>
                     <h5>Description</h5>
                     <p>{{ benefit.description | safe }}</p>
                     <h5>Requirement</h5>
