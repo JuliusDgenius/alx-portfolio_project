@@ -46,21 +46,6 @@ def linkify(text):
 #             value = linkify(value)
 #         benefit[key] = value
 
-def save_picture(form_picture):
-    """Helper function to save profile pictures"""
-    random_hex = secrets.token_hex(8)
-    _, file_extension = os.path.splitext(form_picture.filename)
-    picture_filename = random_hex + file_extension
-    picture_path = os.path.join(app.root_path, 'static/assets', picture_filename)
-
-    output_size = (125, 125)
-    image = Image.open(form_picture)
-    image.thumbnail(output_size)
-    image.save(picture_path)
-
-    return picture_filename
-
-
 @app.route("/")
 @app.route("/home")
 def home():
@@ -115,6 +100,20 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+def save_picture(form_picture):
+    """Helper function to save profile pictures"""
+    random_hex = secrets.token_hex(8)
+    _, file_extension = os.path.splitext(form_picture.filename)
+    picture_filename = random_hex + file_extension
+    picture_path = os.path.join(app.root_path, 'static/assets', picture_filename)
+
+    output_size = (125, 125)
+    image = Image.open(form_picture)
+    image.thumbnail(output_size)
+    image.save(picture_path)
+
+    return picture_filename
 
 @app.route('/account', methods=["GET", "POST"])
 @login_required # login is required to access this route.
