@@ -3,17 +3,19 @@
     <div class="container">
         <h1>Welcome To BenefitsHub Nigeria.</h1><br>
         <p>Get all information about government benefits as soon as they are posted. You no longer have to miss out on any schemes or programs because you did not know about them. Here you will find all benefits in one place.</p>
-        <div class="container-fluid">
+        <div class="container text-l-center">
             <!-- banner image  -->
             <img src="{{ url_for('static', filename='assets/img_2.jpeg') }}" alt="BenefitsHub-Nigeria" class="img-fluid banner"><br>
-        </div>
+        
         <h2>Check out some mouth-watering benefits below or click the explore benefits button to view all.
         </h2><br>
+        </div>
         <div class="row">
             {% for benefit in benefits[:4] %}
                 <div class="col-12 col-md-6 mb-4">
                     <h2>{{ benefit.name }}</h2>
-                    <img class="rounded article-img" src="{{ url_for('static', filename='assets/') }}" alt="benefit image">
+                    <!-- <img class="rounded article-img" src="{{ url_for('static', filename='assets/') }}" alt="benefit image">  -->
+                    <img src="{{ benefit.image }}" alt="benefit image" class="rounded d-block mx-auto>
                     <h5>Description</h5>
                     <p>{{ benefit.description | safe }}</p>
                     <h5>Requirement</h5>
