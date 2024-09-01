@@ -46,6 +46,10 @@ def linkify(text):
 #             value = linkify(value)
 #         benefit[key] = value
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
 def save_picture(form_picture):
     """Helper function to save profile pictures"""
     random_hex = secrets.token_hex(8)
