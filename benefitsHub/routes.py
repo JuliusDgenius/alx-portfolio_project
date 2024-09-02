@@ -167,12 +167,20 @@ def new_benefit():
         file_path = None
         if file:
             filename = secure_filename(file.filename)
+            print(f"Original filename: {file.filename}")
+            print(f"Sanitized filename: {filename}")
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            print(f"File path: {file_path}")
             if os.path.exists(file_path):
                 filename = f"{os.path.splitext(filename)[0]}_{int(time.time())}{os.path.splitext(filename)[1]}"
                 file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(file_path)
-            flash('File successfully uploaded', 'success')
+                print(f"New file path: {file_path}")
+            try:
+                file.save(file_path)
+                flash('File successfully uploaded', 'success')
+            except Exception as e:
+                flash(f'Error: {e}', 'danger')
+                
         benefit = Benefit(name=form.name.data,
                           description=form.description.data,
                           benefit_image=file_path,
