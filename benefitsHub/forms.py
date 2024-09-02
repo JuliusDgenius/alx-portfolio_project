@@ -72,13 +72,13 @@ class BenefitForm(FlaskForm):
     description = StringField('Description', validators=[DataRequired()])
     benefit_image = FileField('Benefit Image', validators=[FileAllowed(['jpg', 'png'])])
     benefit_requirement = StringField('Benefit Requirement', validators=[DataRequired()])
-    benefit_duration = DateField('Benefit Duration', validators=[DataRequired()], format="%d-%m-%Y")
+    benefit_duration = DateField('Benefit Duration', validators=[DataRequired()], format='%Y-%m-%d")
     benefit_link = StringField('Benefit Link', validators=[DataRequired()])
-    benefit_start_date = DateField('Benefit Start Date', validators=[DataRequired()], format="%d-%m-%Y")
+    benefit_start_date = DateField('Benefit Start Date', validators=[DataRequired()], format='%Y-%m-%d)
     benefit_end_date = DateField('Benefit End Date', validators=[DataRequired()], format="%d-%m-%Y")
     benefit_status = SelectField('Benefit Status', choices=[('active', 'Active'), ('inactive', 'Inactive')], validators=[DataRequired()])
     benefit_created_by = StringField('Benefit Created By', validators=[DataRequired()])
-    benefit_updated_on = DateField('Benefit Updated On', validators=[DataRequired()], format="%d-%m-%Y")
+    benefit_updated_on = DateField('Benefit Updated On', validators=[DataRequired()], format='%Y-%m-%d)
 
     submit = SubmitField('Create Benefit')
 
