@@ -41,7 +41,7 @@ class Benefit(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f"Benefit('{self.name}', '{self.benefit_duration}',\
+        return f"Benefit('{self.name}',\
                         '{self.benefit_start_date}',\
                         '{self.benefit_end_date}', '{self.benefit_status}',\
                         '{self.benefit_created_by}', '{self.benefit_updated_on}')"
