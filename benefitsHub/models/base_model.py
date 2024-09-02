@@ -23,13 +23,13 @@ class User(db.Model, UserMixin):
 
 
 class Benefit(db.Model):
+    """Benefit model"""
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), unique=True, nullable=False)
-    description = db.Column(db.String(120), nullable=False, default='')
-    benefit_image = db.Column(db.String(60), nullable=True, default='default.jpg')
-    benefit_requirement = db.Column(db.String(160), nullable=True, default='')
-    benefit_duration = db.Column(db.Integer, nullable=False)
-    benefit_link = db.Column(db.String(60), nullable=False)
+    name = db.Column(db.String(120), unique=True, nullable=False)
+    description = db.Column(db.String(160), nullable=False, default='')
+    benefit_image = db.Column(db.String(255), nullable=True)
+    benefit_requirement = db.Column(db.String(255), nullable=True)
+    benefit_link = db.Column(db.String(60), nullable=True)
     benefit_start_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     benefit_end_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     benefit_status = db.Column(db.String(60), nullable=False, default='Active')
