@@ -57,7 +57,7 @@
                    {{ form.benefit_image.label() }}
                    {% if form.benefit_image.errors %}
                        <div class="custom-file">
-                           {{ form.benefit_image(class="custom-file-input is-invalid") }}
+                           {{ form.benefit_image(class="form-control-file is-invalid") }}
                            <div class="invalid-feedback">
                                {% for error in form.benefit_image.errors %}
                                    <span>{{ error }}</span>
