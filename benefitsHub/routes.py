@@ -174,13 +174,13 @@ def new_benefit():
                           description=form.description.data,
                           benefit_image=form.filename,
                           benefit_requirement=form.benefit_requirement.data,
-                          benefit_duration=form.benefit_duration.data,
+                          benefit_duration=form.benefit_duration.data.strftime("%d-%m-%Y"),
                           benefit_link=form.benefit_link.data,
-                          benefit_start_date=form.benefit_start_date.data,
-                          benefit_end_date=form.benefit_end_date.data,
+                          benefit_start_date=form.benefit_start_date.data.strftime("%d-%m-%Y"),
+                          benefit_end_date=form.benefit_end_date.data.strftime("%d-%m-%Y"),
                           benefit_status=form.benefit_status.data,
                           benefit_created_by=current_user.username,
-                          benefit_updated_on=form.benefit_updated_on.data,
+                          benefit_updated_on=form.benefit_updated_on.data.strftime("%d-%m-%Y"),
                           user_id=current_user.id)
     
         db.session.add(benefit)
