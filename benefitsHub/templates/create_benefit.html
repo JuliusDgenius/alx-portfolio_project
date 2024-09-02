@@ -60,7 +60,7 @@
                            {{ form.benefit_image(class="form-control-file") }}
                            <div class="invalid-feedback">
                                {% for error in form.benefit_image.errors %}
-                                   <span>{{ error }}</span>
+                                   <span class="text-danger">{{ error }}</span>
                                {% endfor %}
                            </div>
                        </div>
