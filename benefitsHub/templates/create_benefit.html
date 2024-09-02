@@ -1,7 +1,7 @@
-{% extends "layout.html" %}
+<!-- {% extends "layout.html" %}
 {% block content %}
    <div>
-       <!-- form validation errors don't show without the novalidate on line 5. -->
+       form validation errors don't show without the novalidate on line 5.
        <form method="POST" action=""novalidate enctype="multipart/form-data">
            {{ form.hidden_tag() }}
            <fieldset class="form-group">
@@ -155,4 +155,206 @@
            </div>
        </form>
    </div>
+{% endblock content %} -->
+
+{% extends "layout.html" %}
+{% block content %}
+   <div class="container mt-5">
+       <h2>Create a New Benefit</h2>
+       <form method="POST" action="" novalidate enctype="multipart/form-data">
+           {{ form.hidden_tag() }}
+           <fieldset class="form-group">
+               <legend class="border-bottom mb-4">Post Benefit</legend>
+
+               <!-- Name Field -->
+               <div class="form-group">
+                   {{ form.name.label(class="form-control-label") }}
+                   {% if form.name.errors %}
+                       {{ form.name(class="form-control form-control-lg is-invalid") }}
+                       <div class="invalid-feedback">
+                           {% for error in form.name.errors %}
+                               <span>{{ error }}</span>
+                           {% endfor %}
+                       </div>
+                   {% else %}
+                       {{ form.name(class="form-control form-control-lg") }}
+                   {% endif %}
+               </div>
+
+               <!-- Description Field -->
+               <div class="form-group">
+                   {{ form.description.label(class="form-control-label") }}
+                   {% if form.description.errors %}
+                       {{ form.description(class="form-control form-control-lg is-invalid") }}
+                       <div class="invalid-feedback">
+                           {% for error in form.description.errors %}
+                               <span>{{ error }}</span>
+                           {% endfor %}
+                       </div>
+                   {% else %}
+                       {{ form.description(class="form-control form-control-lg") }}
+                   {% endif %}
+               </div>
+
+               <!-- Benefit Requirement Field -->
+               <div class="form-group">
+                   {{ form.benefit_requirement.label(class="form-control-label") }}
+                   {% if form.benefit_requirement.errors %}
+                       {{ form.benefit_requirement(class="form-control form-control-lg is-invalid") }}
+                       <div class="invalid-feedback">
+                           {% for error in form.benefit_requirement.errors %}
+                               <span>{{ error }}</span>
+                           {% endfor %}
+                       </div>
+                   {% else %}
+                       {{ form.benefit_requirement(class="form-control form-control-lg") }}
+                   {% endif %}
+               </div>
+
+               <!-- Benefit Image Field -->
+               <div class="form-group">
+                   {{ form.benefit_image.label(class="form-control-label") }}
+                   {% if form.benefit_image.errors %}
+                       <div class="custom-file">
+                           {{ form.benefit_image(class="custom-file-input is-invalid") }}
+                           <label class="custom-file-label" for="benefit_image">Choose file</label>
+                           <div class="invalid-feedback">
+                               {% for error in form.benefit_image.errors %}
+                                   <span>{{ error }}</span>
+                               {% endfor %}
+                           </div>
+                       </div>
+                   {% else %}
+                       <div class="custom-file">
+                           {{ form.benefit_image(class="custom-file-input") }}
+                           <label class="custom-file-label" for="benefit_image">Choose file</label>
+                       </div>
+                   {% endif %}
+               </div>
+
+               <!-- Benefit Duration Field -->
+               <div class="form-group">
+                   {{ form.benefit_duration.label(class="form-control-label") }}
+                   {% if form.benefit_duration.errors %}
+                       {{ form.benefit_duration(class="form-control form-control-lg is-invalid") }}
+                       <div class="invalid-feedback">
+                           {% for error in form.benefit_duration.errors %}
+                               <span>{{ error }}</span>
+                           {% endfor %}
+                       </div>
+                   {% else %}
+                       {{ form.benefit_duration(class="form-control form-control-lg") }}
+                   {% endif %}
+               </div>
+
+               <!-- Benefit Link Field -->
+               <div class="form-group">
+                   {{ form.benefit_link.label(class="form-control-label") }}
+                   {% if form.benefit_link.errors %}
+                       {{ form.benefit_link(class="form-control form-control-lg is-invalid") }}
+                       <div class="invalid-feedback">
+                           {% for error in form.benefit_link.errors %}
+                               <span>{{ error }}</span>
+                           {% endfor %}
+                       </div>
+                   {% else %}
+                       {{ form.benefit_link(class="form-control form-control-lg") }}
+                   {% endif %}
+               </div>
+
+               <!-- Benefit Start Date Field -->
+               <div class="form-group">
+                   {{ form.benefit_start_date.label(class="form-control-label") }}
+                   {% if form.benefit_start_date.errors %}
+                       {{ form.benefit_start_date(class="form-control form-control-lg is-invalid") }}
+                       <div class="invalid-feedback">
+                           {% for error in form.benefit_start_date.errors %}
+                               <span>{{ error }}</span>
+                           {% endfor %}
+                       </div>
+                   {% else %}
+                       {{ form.benefit_start_date(class="form-control form-control-lg") }}
+                   {% endif %}
+               </div>
+
+               <!-- Benefit End Date Field -->
+               <div class="form-group">
+                   {{ form.benefit_end_date.label(class="form-control-label") }}
+                   {% if form.benefit_end_date.errors %}
+                       {{ form.benefit_end_date(class="form-control form-control-lg is-invalid") }}
+                       <div class="invalid-feedback">
+                           {% for error in form.benefit_end_date.errors %}
+                               <span>{{ error }}</span>
+                           {% endfor %}
+                       </div>
+                   {% else %}
+                       {{ form.benefit_end_date(class="form-control form-control-lg") }}
+                   {% endif %}
+               </div>
+
+               <!-- Benefit Status Field -->
+               <div class="form-group">
+                   {{ form.benefit_status.label(class="form-control-label") }}
+                   {% if form.benefit_status.errors %}
+                       {{ form.benefit_status(class="form-control form-control-lg is-invalid") }}
+                       <div class="invalid-feedback">
+                           {% for error in form.benefit_status.errors %}
+                               <span>{{ error }}</span>
+                           {% endfor %}
+                       </div>
+                   {% else %}
+                       {{ form.benefit_status(class="form-control form-control-lg") }}
+                   {% endif %}
+               </div>
+
+               <!-- Benefit Created By Field -->
+               <div class="form-group">
+                   {{ form.benefit_created_by.label(class="form-control-label") }}
+                   {% if form.benefit_created_by.errors %}
+                       {{ form.benefit_created_by(class="form-control form-control-lg is-invalid") }}
+                       <div class="invalid-feedback">
+                           {% for error in form.benefit_created_by.errors %}
+                               <span>{{ error }}</span>
+                           {% endfor %}
+                       </div>
+                   {% else %}
+                       {{ form.benefit_created_by(class="form-control form-control-lg") }}
+                   {% endif %}
+               </div>
+
+               <!-- Benefit Updated On Field -->
+               <div class="form-group">
+                   {{ form.benefit_updated_on.label(class="form-control-label") }}
+                   {% if form.benefit_updated_on.errors %}
+                       {{ form.benefit_updated_on(class="form-control form-control-lg is-invalid") }}
+                       <div class="invalid-feedback">
+                           {% for error in form.benefit_updated_on.errors %}
+                               <span>{{ error }}</span>
+                           {% endfor %}
+                       </div>
+                   {% else %}
+                       {{ form.benefit_updated_on(class="form-control form-control-lg") }}
+                   {% endif %}
+               </div>
+           </fieldset>
+           <div class="form-group">
+               {{ form.submit(class="btn btn-outline-info btn-lg") }}
+           </div>
+       </form>
+   </div>
+
+   <!-- Optional: Add JavaScript to show the selected file name -->
+   <script>
+       // Function to display the selected file name
+       document.addEventListener('DOMContentLoaded', function () {
+           const fileInputs = document.querySelectorAll('.custom-file-input');
+           fileInputs.forEach(function (input) {
+               input.addEventListener('change', function (e) {
+                   const fileName = e.target.files[0] ? e.target.files[0].name : 'Choose file';
+                   const nextSibling = e.target.nextElementSibling;
+                   nextSibling.innerText = fileName;
+               });
+           });
+       });
+   </script>
 {% endblock content %}

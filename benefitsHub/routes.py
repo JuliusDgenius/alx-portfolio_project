@@ -8,6 +8,7 @@ from benefitsHub import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, request
 from benefitsHub.forms import RegistrationForm, LoginForm, UpdateAccountForm, BenefitForm, MakePostForm
 from benefitsHub.models.base_model import User, Benefit, Post
+from werkzeug.utils import secure_filename
 
 # helper functions
 def linkify(text):
@@ -45,24 +46,6 @@ def linkify(text):
 #         if key == "requirement" or key == "description":
 #             value = linkify(value)
 #         benefit[key] = value
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
-
-def save_picture(form_picture):
-    """Helper function to save profile pictures"""
-    random_hex = secrets.token_hex(8)
-    _, file_extension = os.path.splitext(form_picture.filename)
-    picture_filename = random_hex + file_extension
-    picture_path = os.path.join(app.root_path, 'static/assets', picture_filename)
-
-    output_size = (125, 125)
-    image = Image.open(form_picture)
-    image.thumbnail(output_size)
-    image.save(picture_path)
-
-    return picture_filename
 
 @app.route("/")
 @app.route("/home")
@@ -161,6 +144,20 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+def save_picture(form_picture):
+    """Helper function to save profile pictures"""
+    random_hex = secrets.token_hex(8)
+    _, file_extension = os.path.splitext(form_picture.filename)
+    picture_filename = random_hex + file_extension
+    picture_path = os.path.join(app.root_path, 'static/assets', picture_filename)
+
+    output_size = (125, 125)
+    image = Image.open(form_picture)
+    image.thumbnail(output_size)
+    image.save(picture_path)
+
+    return picture_filename
+
 @app.route('/account', methods=["GET", "POST"])
 @login_required # login is required to access this route.
 def account():
@@ -186,18 +183,24 @@ def new_benefit():
     """Flask route to create a new benefit""" 
     form = BenefitForm()
     if form.validate_on_submit():
+        file = form.benefit_image.data
+        if file:
+            filename = secure_filename(file.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
+            flash('File successfully uploaded', 'success')
         fmt = "%d-%m-%Y"
         benefit = Benefit(name=form.name.data,
                           description=form.description.data,
-                          # benefit_image=form.benefit_image.data,
-                          # benefit_requirement=form.benefit_requirement.data,
+                          benefit_image=form.filename,
+                          benefit_requirement=form.benefit_requirement.data,
                           benefit_duration=form.benefit_duration.data,
                           benefit_link=form.benefit_link.data,
-                          benefit_start_date=datetime.strptime(form.benefit_start_date.data, fmt),
-                          benefit_end_date=datetime.strptime(form.benefit_end_date.data, fmt),
+                          benefit_start_date=form.benefit_start_date.data,
+                          benefit_end_date=form.benefit_end_date.data,
                           benefit_status=form.benefit_status.data,
                           benefit_created_by=current_user.username,
-                          benefit_updated_on=datetime.strptime(form.benefit_updated_on.data, fmt),
+                          benefit_updated_on=form.benefit_updated_on.data,
                           user_id=current_user.id)
     
         db.session.add(benefit)

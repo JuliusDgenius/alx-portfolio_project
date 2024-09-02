@@ -1,4 +1,5 @@
 from flask import Flask
+import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
@@ -16,9 +17,12 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login' # The name of the route to redirect to if the user is not logged in.
 login_manager.login_message_category = 'info'
 
-app.config['UPLOAD_FOLDER'] = 'uploads/'  # Define the upload folder
+app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'uploads')  # Define the upload folder
 app.config['ALLOWED_EXTENSIONS'] = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}  # Allowed file extensions
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Max upload size (16 MB)
+
+# Ensure the upload folder exists
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 # Import routes
 from benefitsHub import routes

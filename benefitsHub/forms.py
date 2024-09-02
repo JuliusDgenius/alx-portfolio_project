@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import BooleanField, StringField, PasswordField, SubmitField
+from wtforms import BooleanField, StringField, PasswordField, SubmitField, DateField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from benefitsHub.models.base_model import User
 
@@ -72,13 +72,13 @@ class BenefitForm(FlaskForm):
     description = StringField('Description', validators=[DataRequired()])
     benefit_image = FileField('Benefit Image', validators=[FileAllowed(['jpg', 'png'])])
     benefit_requirement = StringField('Benefit Requirement', validators=[DataRequired()])
-    benefit_duration = StringField('Benefit Duration', validators=[DataRequired()])
+    benefit_duration = DateField('Benefit Duration', validators=[DataRequired()], format="%d-%m-%Y")
     benefit_link = StringField('Benefit Link', validators=[DataRequired()])
-    benefit_start_date = StringField('Benefit Start Date', validators=[DataRequired()])
-    benefit_end_date = StringField('Benefit End Date', validators=[DataRequired()])
-    benefit_status = StringField('Benefit Status', validators=[DataRequired()])
+    benefit_start_date = DateField('Benefit Start Date', validators=[DataRequired()], format="%d-%m-%Y")
+    benefit_end_date = DateField('Benefit End Date', validators=[DataRequired()], format="%d-%m-%Y")
+    benefit_status = SelectField('Benefit Status', choices=[('active', 'Active'), ('inactive', 'Inactive')], validators=[DataRequired()])
     benefit_created_by = StringField('Benefit Created By', validators=[DataRequired()])
-    benefit_updated_on = StringField('Benefit Updated On', validators=[DataRequired()])
+    benefit_updated_on = DateField('Benefit Updated On', validators=[DataRequired()], format="%d-%m-%Y")
 
     submit = SubmitField('Create Benefit')
 
