@@ -164,6 +164,7 @@ def new_benefit():
     form = BenefitForm()
     if form.validate_on_submit():
         file = form.benefit_image.data
+        file_path = None
         if file:
             filename = secure_filename(file.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
