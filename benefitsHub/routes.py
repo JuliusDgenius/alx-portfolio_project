@@ -177,7 +177,6 @@ def new_benefit():
                           description=form.description.data,
                           benefit_image=file_path,
                           benefit_requirement=form.benefit_requirement.data,
-                          benefit_duration=form.benefit_duration.data,
                           benefit_link=form.benefit_link.data,
                           benefit_start_date=form.benefit_start_date.data,
                           benefit_end_date=form.benefit_end_date.data,
