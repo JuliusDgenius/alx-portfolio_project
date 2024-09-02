@@ -169,10 +169,9 @@ def new_benefit():
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
             flash('File successfully uploaded', 'success')
-        fmt = "%d-%m-%Y"
         benefit = Benefit(name=form.name.data,
                           description=form.description.data,
-                          benefit_image=form.filename,
+                          benefit_image=file_path,
                           benefit_requirement=form.benefit_requirement.data,
                           benefit_duration=form.benefit_duration.data,
                           benefit_link=form.benefit_link.data,
