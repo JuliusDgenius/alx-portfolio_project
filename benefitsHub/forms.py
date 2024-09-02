@@ -78,7 +78,7 @@ class BenefitForm(FlaskForm):
     benefit_end_date = DateField('Benefit End Date', validators=[DataRequired()], format="%d-%m-%Y")
     benefit_status = SelectField('Benefit Status', choices=[('active', 'Active'), ('inactive', 'Inactive')], validators=[DataRequired()])
     benefit_created_by = StringField('Benefit Created By', validators=[DataRequired()])
-    benefit_updated_on = DateField('Benefit Updated On', validators=[DataRequired()], format='%Y-%m-%d)
+    benefit_updated_on = DateField('Benefit Updated On', validators=[DataRequired()], format='%Y-%m-%d")
 
     submit = SubmitField('Create Benefit')
 
