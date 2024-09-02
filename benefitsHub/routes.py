@@ -50,18 +50,8 @@ def linkify(text):
 @app.route("/")
 @app.route("/home")
 def home():
-    form = UpdateAccountForm()
-    if form.validate_on_submit():
-        if form.update_picture.data:
-            picture_file = save_picture(form.update_picture.data)
-            current_user.profile_pic = picture_file
-        db.session.commit()
-        flash('Your account has been updated!', 'success')
-        return redirect(url_for('account'))
-    profile_pic = url_for('static', filename='assets/' + current_user.profile_pic)
-    profile_pic = url_for('static', filename='assets/' + current_user.profile_pic)
     benefits = Benefit.query.all()
-    return render_template('home.html', profile_pic=profile_pic, benefits=benefits)
+    return render_template('home.html', benefits=benefits)
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload_file():
@@ -92,17 +82,7 @@ def about():
 @app.route("/explore_benefits")
 def explore_benefits():
     benefits = Benefit.query.all()
-    form = UpdateAccountForm()
-    if form.validate_on_submit():
-        if form.update_picture.data:
-            picture_file = save_picture(form.update_picture.data)
-            current_user.profile_pic = picture_file
-        db.session.commit()
-        flash('Your account has been updated!', 'success')
-        return redirect(url_for('account'))
-    profile_pic = url_for('static', filename='assets/' + current_user.profile_pic)
-    profile_pic = url_for('static', filename='assets/' + current_user.profile_pic)
-    return render_template('explore_benefits.html', profile_pic=profile_pic, benefits=benefits, title='Explore Benefits')
+    return render_template('explore_benefits.html', benefits=benefits, title='Explore Benefits')
 
 @app.route("/view_posts", methods=['GET', 'POST'])
 def view_posts():
