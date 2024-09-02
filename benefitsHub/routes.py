@@ -168,6 +168,9 @@ def new_benefit():
         if file:
             filename = secure_filename(file.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            if os.path.exists(file_path):
+                filename = f"{os.path.splitext(filename)[0]}_{int(time.time())}{os.path.splitext(filename)[1]}"
+                file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
             flash('File successfully uploaded', 'success')
         benefit = Benefit(name=form.name.data,
@@ -180,7 +183,6 @@ def new_benefit():
                           benefit_end_date=form.benefit_end_date.data,
                           benefit_status=form.benefit_status.data,
                           benefit_created_by=current_user.username,
-                          benefit_updated_on=form.benefit_updated_on.data,
                           user_id=current_user.id)
     
         db.session.add(benefit)
