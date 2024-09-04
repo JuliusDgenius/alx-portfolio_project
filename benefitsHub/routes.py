@@ -50,6 +50,7 @@ def linkify(text):
 @app.route("/")
 @app.route("/home")
 def home():
+    """Home route"""
     page = request.args.get('page', 1, type=int)
     benefits = Benefit.query.order_by(Benefit.benefit_created_on.desc()).paginate(page=page, per_page=10)
     return render_template('home.html', benefits=benefits)
@@ -215,3 +216,21 @@ def new_post():
         flash(f'Post {form.title.data} has been created!', 'success')
         return redirect(url_for('view_posts'))
     return render_template('create_post.html', title='New Post', form=form)
+
+@app.route("/user/<string:username>")
+def user_posts(username):
+    page = request.args.get('page', 1, type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = Post.query.filter_by(author=user)\
+            .order_by(Post.date_posted.desc())\
+            .paginate(page=page, per_page=10)
+    return render_template('user_posts.html', post=posts, user=user)
+
+@app.route("/user/<string:username>")
+def user_benefits(username):
+    page = request.args.get('page', 1, type=int)
+    user = Benefit.query.filter_by(username=username).first_or_404()
+    benefits = Benefit.query.filter_by(author=user)\
+            .order_by(Benefit.benefit_created_on.desc())\
+            .paginate(page=page, per_page=10)
+    return render_template('user_benefit.html', benefit=benefits, user=user)
