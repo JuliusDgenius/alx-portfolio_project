@@ -51,7 +51,7 @@ def linkify(text):
 @app.route("/home")
 def home():
     page = request.args.get('page', 1, type=int)
-    benefits = Benefit.query.paginate(page=page, per_page=10)
+    benefits = Benefit.query.order_by(Benefit.benefit_created_on.desc()).paginate(page=page, per_page=10)
     return render_template('home.html', benefits=benefits)
 
 @app.route("/upload", methods=['GET', 'POST'])
@@ -83,14 +83,14 @@ def about():
 @app.route("/explore_benefits")
 def explore_benefits():
     page = request.args.get('page', type=int)
-    benefits = Benefit.query.paginate(page=page, per_page=10)
+    benefits = Benefit.query.order_by(Benefit.date_posted.desc()).paginate(page=page, per_page=10)
     return render_template('explore_benefits.html', benefits=benefits, title='Explore Benefits')
 
 @app.route("/view_posts", methods=['GET', 'POST'])
 def view_posts():
     """Flask route to view posts made by users"""
     page = request.args.get('page', type=int)
-    posts = Post.query.paginate(page=page, per_page=5)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template('view_posts.html', posts=posts, title='View Posts')
 
 @app.route("/register", methods=["GET", "POST"])
