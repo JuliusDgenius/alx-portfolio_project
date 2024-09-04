@@ -226,11 +226,11 @@ def user_posts(username):
             .paginate(page=page, per_page=10)
     return render_template('user_posts.html', post=posts, user=user)
 
-@app.route("/user/<string:username>")
+@app.route("/user_benefit/<string:username>")
 def user_benefits(username):
     page = request.args.get('page', 1, type=int)
-    user = Benefit.query.filter_by(username=username).first_or_404()
-    benefits = Benefit.query.filter_by(author=user)\
+    user_benefit = Benefit.query.filter_by(username=username).first_or_404()
+    benefits = Benefit.query.filter_by(author=user_benefit)\
             .order_by(Benefit.benefit_created_on.desc())\
             .paginate(page=page, per_page=10)
-    return render_template('user_benefit.html', benefit=benefits, user=user)
+    return render_template('user_benefit.html', benefit=benefits, user=user_benefit)
