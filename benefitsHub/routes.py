@@ -224,7 +224,7 @@ def user_posts(username):
     posts = Post.query.filter_by(author=user)\
             .order_by(Post.date_posted.desc())\
             .paginate(page=page, per_page=10)
-    return render_template('user_posts.html', post=posts, user=user)
+    return render_template('user_posts.html', posts=posts, user=user)
 
 @app.route("/user_benefit/<string:username>")
 def user_benefits(username):
