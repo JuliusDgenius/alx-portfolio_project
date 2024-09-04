@@ -21,8 +21,8 @@
                     <p>{{ benefit.description | safe }}</p>
                     <h5>Requirement</h5>
                     <p>{{ benefit.requirement | safe }}</p>
-                   <p> Posted on: <span>{{ benefit.start_date.strftime('%Y-%m-%d') }}</span><br>
-                    Ends on: <span>{{ benefit.end_date.strftime('%Y-%m-%d') }}</span></p>
+                   <p> Posted on: <span>{{ benefit.benefit_start_date.strftime('%Y-%m-%d') }}</span><br>
+                    Ends on: <span>{{ benefit.benefit_end_date.strftime('%Y-%m-%d') }}</span></p>
                     <button data-link={{ benefit.link }} class="btn btn-primary apply-button">Apply</button>
                 </div>
             {% endfor %}
