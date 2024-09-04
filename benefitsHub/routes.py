@@ -83,7 +83,11 @@ def about():
 @app.route("/explore_benefits")
 def explore_benefits():
     page = request.args.get('page', type=int)
+<<<<<<< HEAD
     benefits = Benefit.query.order_by(Benefit.benefit_created_on.desc()).paginate(page=page, per_page=10)
+=======
+    benefits = Benefit.query.order_by(Benefit.date_posted.desc()).paginate(page=page, per_page=10)
+>>>>>>> 63704c40f8eacaefa6108db36669da07ad7ab890
     return render_template('explore_benefits.html', benefits=benefits, title='Explore Benefits')
 
 @app.route("/view_posts", methods=['GET', 'POST'])
