@@ -50,7 +50,8 @@ def linkify(text):
 @app.route("/")
 @app.route("/home")
 def home():
-    benefits = Benefit.query.all()
+    page = request.args.get('page', 1, type=int)
+    benefits = Benefit.query.paginate(page=page, per_page=10)
     return render_template('home.html', benefits=benefits)
 
 @app.route("/upload", methods=['GET', 'POST'])
@@ -81,7 +82,8 @@ def about():
 
 @app.route("/explore_benefits")
 def explore_benefits():
-    benefits = Benefit.query.all()
+    page = request.args.get('page', type=int)
+    benefits = Benefit.query.paginate(page=page, per_page=15)
     return render_template('explore_benefits.html', benefits=benefits, title='Explore Benefits')
 
 @app.route("/view_posts", methods=['GET', 'POST'])
