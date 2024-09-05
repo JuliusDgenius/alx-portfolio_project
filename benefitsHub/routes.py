@@ -90,7 +90,7 @@ def explore_benefits():
 def view_posts():
     """Flask route to view posts made by users"""
     page = request.args.get('page', type=int)
-    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=10)
     return render_template('view_posts.html', posts=posts, title='View Posts')
 
 @app.route("/register", methods=["GET", "POST"])
