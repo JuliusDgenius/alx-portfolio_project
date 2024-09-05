@@ -13,7 +13,7 @@
               <h5>Requirement</h5>
               <p>{{ benefit.requirement | safe }}</p>
               <div article-metadata>
-                <a class="mb-3" href="{{ url_for('user_benefits', username=benefit.benefit_created_by) }}"> {{ benefit.benefit_created_by }}</a><br>
+                <a class="mb-3" href="{{ url_for('user_benefits', username=benefit.benefit_created_by) }}">Post By {{ benefit.benefit_created_by }}</a><br>
                 <small class="text-muted">
                   Posted on {{ benefit.benefit_start_date.strftime('%Y-%m-%d') }}<br>
                   Ends on: {{ benefit.benefit_end_date.strftime('%Y-%m-%d') }}
