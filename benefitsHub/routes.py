@@ -51,7 +51,7 @@ def linkify(text):
 def home():
     """Home route"""
     page = request.args.get('page', 1, type=int)
-    benefits = Benefit.query.order_by(Benefit.benefit_created_on.desc()).paginate(page=page, per_page=5)
+    benefits = Benefit.query.order_by(Benefit.benefit_created_on.desc()).paginate(page=page, per_page=6)
     return render_template('home.html', benefits=benefits)
 
 @app.route("/upload", methods=['GET', 'POST'])
