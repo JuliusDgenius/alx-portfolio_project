@@ -1,4 +1,3 @@
-from datetime import datetime
 import re
 import secrets
 from PIL import Image
@@ -209,8 +208,10 @@ def new_post():
     """Function to create a new post"""
     form = MakePostForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, content=form.content.data,
-                    author=current_user, user_id=current_user.id)
+        post = Post(title=form.title.data,
+                    content=form.content.data,
+                    author=current_user,
+                    user_id=current_user.id)
         db.session.add(post)
         db.session.commit()
         flash(f'Post {form.title.data} has been created!', 'success')
