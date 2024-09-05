@@ -16,7 +16,7 @@
               <p> Posted on: <span>{{ benefit.benefit_start_date.strftime('%Y-%m-%d') }}</span><br>
               Ends on: <span>{{ benefit.benefit_end_date.strftime('%Y-%m-%d') }}</span></p>
               <h5>Posted By {{ benefit.benefit_created_by }} ({{ benefits.total }})</h5>
-              <a class="mb-3" href="{{ url_for('user_benefits', username=user.username) }}"> {{ user.username }} </p>
+              <a class="mb-3" href="{{ url_for('user_benefits', username=user_benefit.username) }}"> {{ user_benefit.username }} </p>
         
               <button data-link={{ benefit.link }} class="btn btn-primary apply-button">Apply</button>
             </div>
