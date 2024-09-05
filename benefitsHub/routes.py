@@ -235,4 +235,4 @@ def user_benefits(username):
     benefits = Benefit.query.filter_by(user=user)\
             .order_by(Benefit.benefit_created_on.desc())\
             .paginate(page=page, per_page=10)
-    return render_template('user_benefit.html', benefits=benefits, user=user)
+    return render_template('user_benefits.html', benefits=benefits, user=user)
