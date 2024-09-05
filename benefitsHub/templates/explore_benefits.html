@@ -16,7 +16,7 @@
               Ends on: <span>{{ benefit.benefit_end_date.strftime('%Y-%m-%d') }}</span></p>
               <a class="mb-3" href="{{ url_for('user_benefits', username=benefit.benefit_created_by) }}"> {{ benefit.benefit_created_by }} </a>
         
-              <button data-link={{ benefit.link }} class="btn btn-primary apply-button">Apply</button>
+              <button data-link={{ benefit.link }} class="btn btn-primary apply-button justify-content-center">Apply</button>
             </div>
         {% endfor %}
     </div> 
