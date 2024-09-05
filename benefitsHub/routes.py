@@ -230,8 +230,8 @@ def user_posts(username):
 @app.route("/user_benefit/<string:username>")
 def user_benefits(username):
     page = request.args.get('page', 1, type=int)
-    user_benefit = Benefit.query.filter_by(username=username).first_or_404()
-    benefits = Benefit.query.filter_by(user=username)\
+    user_benefit = Benefit.query.filter_by(user=username).first_or_404()
+    benefits = Benefit.query.filter_by(user=user_benefit)\
             .order_by(Benefit.benefit_created_on.desc())\
             .paginate(page=page, per_page=10)
     return render_template('user_benefit.html', benefits=benefits, user=user_benefit)
