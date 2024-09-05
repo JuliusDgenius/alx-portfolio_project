@@ -3,6 +3,7 @@
     <h1>Explore All Benefits</h1>
         {% for benefit in benefits.items %}
             <div class="col-12 col-md-6 mb-4 media content-section">
+              <div class="media-body">
               <h2>{{ benefit.name }}</h2>
               <div class="media">
                 <img class="rounded img-fluid account-img" src="{{ profile_pic }}" alt="User profile picture">
@@ -16,6 +17,7 @@
               <a class="mb-3" href="{{ url_for('user_benefits', username=benefit.benefit_created_by) }}"> {{ benefit.benefit_created_by }} </a>
         
               <button data-link={{ benefit.link }} class="btn btn-primary apply-button">Apply</button>
+                </div>
             </div>
         {% endfor %}
     {% for page_num in benefits.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
