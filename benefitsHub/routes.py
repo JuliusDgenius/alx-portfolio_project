@@ -49,7 +49,7 @@ def linkify(text):
 @app.route("/")
 @app.route("/home")
 def home():
-    """Home route"""
+    """Home route. will serve as the landing page"""
     page = request.args.get('page', 1, type=int)
     benefits = Benefit.query.order_by(Benefit.benefit_created_on.desc()).paginate(page=page, per_page=6)
     return render_template('home.html', benefits=benefits)
