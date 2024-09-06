@@ -3,11 +3,14 @@ import secrets
 from PIL import Image
 import os
 from flask_login import login_user, current_user, logout_user, login_required
-from benefitsHub import app, db, bcrypt
+from benefitsHub import app, db, bcrypt, email
 from flask import render_template, url_for, flash, redirect, request
-from benefitsHub.forms import RegistrationForm, LoginForm, UpdateAccountForm, BenefitForm, MakePostForm
+from benefitsHub.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
+                               BenefitForm, MakePostForm,
+                               RequestResetForm, ResetPasswordForm)
 from benefitsHub.models.base_model import User, Benefit, Post
 from werkzeug.utils import secure_filename
+from flask_mail import Message
 
 # helper functions
 def linkify(text):
@@ -227,8 +230,10 @@ def user_posts(username):
             .paginate(page=page, per_page=5)
     return render_template('user_posts.html', posts=posts, user=user)
 
+
 @app.route("/user_benefit/<string:username>")
 def user_benefits(username):
+    """View a user's posted benefits"""
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
     Benefit.query.filter_by(user=user).order_by(Benefit.benefit_created_on.desc()).paginate(page=1)
@@ -236,3 +241,46 @@ def user_benefits(username):
             .order_by(Benefit.benefit_created_on.desc())\
             .paginate(page=page, per_page=10)
     return render_template('user_benefits.html', benefits=benefits, user=user)
+
+
+def send_reset_email(user):
+    """Sends an email containing the reset token"""
+    token = user.get_reset_token()
+    message = Message('Password Request Reset', sender='noreply@demo.com',
+                      recipients=[user.email])
+    message.body = f'''Click the link below to reset your password
+    {url_for('reset_token', token=token, _external=True)}
+
+    If you did not make this request, simply ignore this message and no changes will be made.
+    '''
+
+@app.route('/reset_password', methods=["GET", "POST"])
+def reset_request():
+    """Request a password reset"""
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash("An email has been sent with with your password reset token. Use within 30 minutes.", 'info')
+        return redirect(url_for('login'))
+    render_template('reset_request.html', title='Reset Password', form=form)
+
+@app.route('/reset_password/<token>', methods=["GET", "POST"])
+def reset_token(token):
+    """Request a password reset"""
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    user = User.verify_reset_token(token)
+    if not user:
+        flash("That is an invalid or expired token", 'warning')
+        return redirect(url_for('reset_request'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit()
+        flash(f'Welcome {user.username}! Your password has been updated successfully! You can now login to see all your benefits.', 'success')
+        return redirect(url_for('login'))
+    render_template('reset_token.html', title='Reset Password', form=form)
