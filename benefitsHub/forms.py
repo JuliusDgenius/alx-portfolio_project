@@ -95,7 +95,7 @@ class RequestResetForm(FlaskForm):
 
     def validate_email(self, email):
         if email.data != current_user.email:
-            user = User.query.filter_by(email=email.data).first()
+            user = User.query.filter_by(email=user.email).first()
             if user is None:
                 raise ValidationError('There is no account with that email. You must register first')
 
