@@ -265,7 +265,7 @@ def reset_request():
         send_reset_email(user)
         flash("An email has been sent with with your password reset token. Use within 30 minutes.", 'info')
         return redirect(url_for('login'))
-    render_template('reset_request.html', title='Reset Password', form=form)
+    return render_template('reset_request.html', title='Reset Password', form=form)
 
 @app.route('/reset_password/<token>', methods=["GET", "POST"])
 def reset_token(token):
