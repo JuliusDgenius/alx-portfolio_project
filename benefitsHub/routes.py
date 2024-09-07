@@ -246,7 +246,7 @@ def user_benefits(username):
 def send_reset_email(user):
     """Sends an email containing the reset token"""
     token = user.get_reset_token()
-    message = Message('Password Request Reset', sender='noreply@demo.com',
+    message = Message('Password Request Reset', sender='ibejulius1@gmail.com',
                       recipients=[user.email])
     message.body = f'''Click the link below to reset your password
     {url_for('reset_token', token=token, _external=True)}
@@ -284,4 +284,4 @@ def reset_token(token):
         db.session.commit()
         flash(f'Welcome {user.username}! Your password has been updated successfully! You can now login to see all your benefits.', 'success')
         return redirect(url_for('login'))
-    render_template('reset_token.html', title='Reset Password', form=form)
+    return render_template('reset_token.html', title='Reset Password', form=form)
