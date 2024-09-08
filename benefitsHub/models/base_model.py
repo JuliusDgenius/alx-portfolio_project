@@ -1,4 +1,5 @@
-from benefitsHub import db, login_manager, app, Serializer
+from flask import current_app
+from benefitsHub import db, login_manager, Serializer
 from datetime import datetime
 from flask_login import UserMixin
 
@@ -41,9 +42,9 @@ class Benefit(db.Model):
     """Benefit model"""
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
-    description = db.Column(db.String(160), nullable=False, default='')
+    description = db.Column(db.Text, nullable=False, default='')
     benefit_image = db.Column(db.String(255), nullable=True)
-    benefit_requirement = db.Column(db.String(255), nullable=True)
+    benefit_requirement = db.Column(db.Text, nullable=True)
     benefit_link = db.Column(db.String(60), nullable=True)
     benefit_start_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     benefit_end_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -65,7 +66,7 @@ class Benefit(db.Model):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(20), unique=True, nullable=False)
-    content = db.Column(db.String(120), unique=True, nullable=False, default='')
+    content = db.Column(db.Text, unique=True, nullable=False, default='')
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     author = db.Column(db.String(60), nullable=False, default=None)
     # Foreign key to User model
