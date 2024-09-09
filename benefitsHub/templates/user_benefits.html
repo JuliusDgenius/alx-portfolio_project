@@ -1,7 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
     <h1 class="mb-3">Benefits Posted By {{ user.username }} ({{ benefits.total }})</h1>
-    <div class="container">
       <div class="row">
         {% for benefit in benefits.items %}
             <div class="col-12 col-md-6 mb-4">
@@ -16,11 +15,10 @@
               <p> Posted on: <span>{{ benefit.benefit_start_date.strftime('%Y-%m-%d') }}</span><br>
               Ends on: <span>{{ benefit.benefit_end_date.strftime('%Y-%m-%d') }}</span></p>
 
-              <button data-link={{ benefit.link }} class="btn btn-primary apply-button">Apply</button>
+              <button data-link="{{ benefit.link }}" class="btn btn-primary apply-button">Apply</button>
             </div>
         {% endfor %}
       </div>
-    </div>
     {% for page_num in benefits.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
       {% if page_num %}
         {% if benefits.page == page_num %}

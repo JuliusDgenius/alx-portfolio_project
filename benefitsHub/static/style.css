@@ -87,3 +87,12 @@ a.article-title:hover {
   height: 25px;
   vertical-align: middle;
 }
+
+.article-title {
+  color: #444444;
+  text-decoration: none;
+}
+
+.anchor-tag {
+  text-decoration: none;
+}

@@ -1,4 +1,5 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint, current_app
+from flask import (render_template, url_for, flash, redirect,
+                   request, Blueprint, current_app, abort)
 from flask_login import login_user, current_user, logout_user, login_required
 from benefitsHub import db, bcrypt, email
 from benefitsHub.models.base_model import Benefit, User, Post
@@ -48,7 +49,7 @@ def new_benefit():
         db.session.add(benefit)
         db.session.commit()
         flash(f'Benefit {form.name.data} has been created!', 'success')
-        return redirect(url_for('main.home'))
+        return redirect(url_for('benefits.user_benefits', username=current_user.username))
     return render_template('create_benefit.html', title='New Benefit', form=form)
 
 
@@ -75,3 +76,55 @@ def explore_benefits():
                .desc()).paginate(page=page, per_page=10)
     return render_template('explore_benefits.html',
                            benefits=benefits, title='Explore Benefits')
+
+
+@benefits.route("/benefit/<int:benefit_id>")
+def benefit(benefit_id):
+    """View a single benefit by its id"""
+    benefit = Benefit.query.get_or_404(benefit_id)
+    return render_template('benefit.html', title='benefit.name', benefit=benefit)
+
+
+@benefits.route("/benefit/<int:benefit_id>/update", methods=["GET", "POST"])
+@login_required
+def update_benefit(benefit_id):
+    """Updates a benefit"""
+    benefit = Benefit.query.get_or_404(benefit_id)
+    if benefit.benefit_created_by != current_user.username:
+        abort(403)
+    form = BenefitForm()
+    if form.validate_on_submit():
+        benefit.name = form.name.data
+        benefit.benefit_requirement = form.benefit_requirement.data
+        benefit.description = form.description.data
+        benefit.benefit_link = form.benefit_link.data
+        benefit.benefit_start_date = form.benefit_start_date.data
+        benefit.benefit_end_date = form.benefit_end_date.data
+        benefit.benefit_created_by = form.benefit_created_by.data
+        benefit.benefit_updated_on = form.benefit_updated_on.data
+        db.session.commit()
+        flash('Your benefit has been updated!', 'success')
+        return redirect(url_for('benefits.benefit', benefit_id=benefit.id))
+    elif request.method == 'GET': 
+        form.name.data = benefit.name
+        form.benefit_requirement.data = benefit.benefit_requirement
+        form.description.data = benefit.description
+        form.benefit_link.data = benefit.benefit_link
+        form.benefit_start_date.data = benefit.benefit_start_date
+        form.benefit_end_date.data = benefit.benefit_end_date
+        form.benefit_created_by.data = benefit.benefit_created_by
+        form.benefit_updated_on.data = benefit.benefit_updated_on
+    return render_template('create_benefit.html', title='Update Benefit', form=form, legend='Update Benefit')
+
+
+@benefits.route("/benefit/<int:benefit_id>/delete", methods=["POST"])
+@login_required
+def delete_benefit(benefit_id):
+    """Updates a benefit"""
+    benefit = Benefit.query.get_or_404(benefit_id)
+    if benefit.benefit_created_by != current_user.username:
+        abort(403)
+    db.session.delete(benefit)
+    db.session.commit()
+    flash('Your benefit has been deleted!', 'success')
+    return redirect(url_for('benefits.explore_benefit'))

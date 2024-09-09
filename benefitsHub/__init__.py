@@ -36,9 +36,11 @@ def create_app(app_config=Config):
 	from benefitsHub.benefits.routes import benefits
 	from benefitsHub.posts.routes import posts
 	from benefitsHub.main.routes import main
+	from benefitsHub.errors.handlers import errors
 	app.register_blueprint(users)
 	app.register_blueprint(posts)
 	app.register_blueprint(benefits)
 	app.register_blueprint(main)
+	app.register_blueprint(errors)
 
 	return app

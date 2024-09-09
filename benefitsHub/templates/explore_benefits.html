@@ -5,25 +5,23 @@
         {% for benefit in benefits.items %}
             <div class="col-12 col-md-6 mb-4 media content-section">
               <div class="media-body">
-              <h2>{{ benefit.name }}</h2>
+              <h2><a class="anchor-tag" href="{{ url_for('benefits.benefit', benefit_id=benefit.id) }}"> {{ benefit.name }}</a></h2>
               <div class="media">
-                <img class="rounded img-fluid account-img" src="{{ profile_pic }}" alt="User profile picture">
+                <img class="rounded img-fluid account-img" src="{{ profile_pic }}" alt="Image of benefit">
               </div>
               <h5>Description</h5>
               <p>{{ benefit.description | safe }}</p>
               <h5>Requirement</h5>
               <p>{{ benefit.requirement | safe }}</p>
               <div article-metadata>
-                <a class="mb-3" href="{{ url_for('benefits.user_benefits', username=benefit.benefit_created_by) }}">Post By {{ benefit.benefit_created_by }}</a><br>
+                <a class="mb-3 anchor-tag" href="{{ url_for('benefits.user_benefits', username=benefit.benefit_created_by) }}">Post By {{ benefit.benefit_created_by }}</a> On {{ benefit.benefit_created_on.strftime('%Y-%m-%d') }}<br>
                 <small class="text-muted">
-                  Posted on {{ benefit.benefit_start_date.strftime('%Y-%m-%d') }}<br>
-                  Ends on: {{ benefit.benefit_end_date.strftime('%Y-%m-%d') }}
+                  Start Date: {{ benefit.benefit_start_date.strftime('%Y-%m-%d') }}<br>
+                  End Date: {{ benefit.benefit_end_date.strftime('%Y-%m-%d') }}
                 </small>
-                
               </div>
-        
-              <button data-link={{ benefit.link }} class="btn btn-primary apply-button">Apply</button>
-                </div>
+              <button data-link="{{ benefit.link }}" class="btn btn-primary apply-button">Apply</button>
+              </div>
             </div>
         {% endfor %}
     </div>

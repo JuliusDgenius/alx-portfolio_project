@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2 anchor-tag" href="{{ url_for('benefits.user_benefits', username=benefit.benefit_created_by) }}">Posted By {{ benefit.benefit_created_by }}</a>
+        On <small class="text-muted">{{ benefit.benefit_created_on.strftime('%Y-%m-%d') }}</small>
+      </div>
+      <h2 class="article-title">{{ benefit.name }}</h2>
+      <p class="article-content">{{ benefit.description }}</p>
+      <p class="article-content">{{ benefit.benefit_requirement }}</p>
+      <div class="mb-3">
+        <img class="article-img" src="{{ benefit.benefit_image }}" alt="Image of benefit">
+      </div>
+      {% if benefit.benefit_created_by == current_user.username %}
+        <div>
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('benefits.update_benefit', benefit_id=benefit.id) }}" >Update</a>
+          <button class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+        </div>
+      {% else %}
+        <button data-link={{ benefit.link }} class="btn btn-primary apply-button">Apply</button>
+      {% endif %}
+    </div>
+  </article>
+  <!-- Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Delete Benefit?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <form action="{{ url_for('benefits.delete_benefit', benefit_id=benefit.id) }}" method="POST">
+            <input class="btn btn-danger" type="submit" value="Delete">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

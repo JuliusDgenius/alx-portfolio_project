@@ -1,4 +1,5 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import (render_template, url_for, flash,
+                   redirect, request, Blueprint, abort)
 from flask_login import current_user, login_required
 from benefitsHub import db
 from benefitsHub.models.base_model import Post
@@ -32,3 +33,43 @@ def view_posts():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template('view_posts.html', posts=posts, title='View Posts')
+
+
+@posts.route("/post/<int:post_id>")
+def post(post_id):
+    """View a single post by its id"""
+    post = Post.query.get_or_404(post_id)
+    return render_template('post.html', title='post.title', post=post)
+
+
+@posts.route("/post/<int:post_id>/update", methods=["GET", "POST"])
+@login_required
+def update_post(post_id):
+    """Updates a post"""
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user.username:
+        abort(403)
+    form = MakePostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        flash('Your post has been updated!', 'success')
+        return redirect(url_for('posts.post', post_id=post.id))
+    elif request.method == 'GET':
+        form.title.data = post.title
+        form.content.data = post.content
+    return render_template('create_post.html', title='Update Post', form=form, legend='Update Post')
+
+
+@posts.route("/post/<int:post_id>/delete", methods=["POST"])
+@login_required
+def delete_post(post_id):
+    """Deletes a post"""
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user.username:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash('Your post has been deleted!', 'success')
+    return redirect(url_for('posts.view_post'))
