@@ -71,6 +71,12 @@ a.article-title:hover {
   margin-right: 16px;
 }
 
+.feature-img {
+  height: 400px;
+  width: 100%;
+  margin-right: 16px;
+}
+
 .article-metadata {
   padding-bottom: 1px;
   margin-bottom: 4px;

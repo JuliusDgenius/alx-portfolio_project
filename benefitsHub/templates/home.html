@@ -4,34 +4,38 @@
     <!-- Intro Section -->
     <section id="intro" class="intro-section">
         <div class="intro-content">
-            <img src="{{ url_for('static', filename='assets/img_2.jpeg') }}" alt="Project Cover" class="cover-image">
+            <img src="{{ url_for('static', filename='assets/cover-images/cover-image_01.jpeg') }}" alt="Project Cover" class="cover-image">
             <h1>BenefitsHub Nigeria</h1>
-            <p>Your one-stop hub for government benefits in Nigeria</p>
+            <h6>Your one-stop hub for government benefits in Nigeria.</h6>
             <a href="{{ url_for('benefits.explore_benefits') }}" class="btn-primary">Explore Benefits</a>
         </div>
     </section>
 
     <!-- Feature Section -->
-    <section id="features" class="features-section">
+    <section id="features" class="row">
         <h2>Key Features</h2>
         <div class="features">
             <!-- Feature 1 -->
             <div class="feature">
-                <img src="{{ url_for('static', filename='assets/feature1.jpg') }}" alt="Feature 1">
-                <h3>Real-time Updates</h3>
-                <p>Stay updated with real-time notifications on newly posted benefits from various government schemes.</p>
+                <img class="feature-img" src="{{ url_for('static', filename='assets/img_0.jpeg') }}" alt="Feature 1">
+                <h3>Real-time Updates About Benefits You Can Apply To</h3>
+                <p>
+                    Stay updated with real-time notifications on newly posted benefits from various government schemes. No need to miss out on the action, just come here and find everything you need!
+                </p>
             </div>
             <!-- Feature 2 -->
             <div class="feature">
-                <img src="{{ url_for('static', filename='assets/feature2.jpg') }}" alt="Feature 2">
+                <img class="feature-img" src="{{ url_for('static', filename='assets/img_1.jpeg') }}" alt="Feature 2">
                 <h3>Search Benefits by Category</h3>
-                <p>Easily search and filter benefits by categories such as education, healthcare, employment, and more.</p>
+                <p>Easily search and filter benefits by categories such as education, healthcare, employment, and more. Seamlessly apply for benefits online through our platform with step-by-step guidance.</p>
+                <a href="{{ url_for('benefits.explore_benefits') }}">Explore Here</a>
             </div>
             <!-- Feature 3 -->
             <div class="feature">
-                <img src="{{ url_for('static', filename='assets/feature3.jpg') }}" alt="Feature 3">
-                <h3>Easy Application Process</h3>
-                <p>Seamlessly apply for benefits online through our platform with step-by-step guidance.</p>
+                <img class="feature-img" src="{{ url_for('static', filename='assets/img_2.jpeg') }}" alt="Feature 3">
+                <h3>Share Your Thoughts By Making Blog</h3>
+                <p>Create an account and blog your thoughts about government schemes and programs. Share tips and any other useful information.</p>
+                <a href="{{ url_for('posts.new_post') }}">Make A Post</a>
             </div>
         </div>
     </section>
@@ -40,25 +44,27 @@
     <section id="about" class="about-section">
         <h2>About BenefitsHub Nigeria</h2>
         <p>
-            The inspiration for BenefitsHub Nigeria came from the lack of centralized information about government benefits. 
+            The inspiration for <b>BenefitsHub Nigeria</b> came from the lack of centralized information about government benefits. It is a website where you can explore and apply for all current benefits offered by goverment agencies in Nigeria. As you know, Information is crucial if you must become aware of government programs that you may benefit from, as of now, there is no single website that provides a well-curated list of available government benefits. <b>BenefitsHub</b> seeks to fill that vacuum by curating all government schemes and programs that are meant to assist citizens, especially unemployed citizens. It is your one-stop shop for everything empowerment, grants, low-interest loans and a wide range of other benefits offered by the government. We update you with all programs of government that are aimed as a palliative to cushion the effect of the global economic downturn.  Do not lose out on any government intervention because you missed the information. Simply create an account and login to apply and track the status of your application.
+        </p>
+        <p>
             Our mission is to help Nigerians access available government benefits more easily and efficiently.
-            This project was developed as a Portfolio Project for Holberton School.
+            This project was developed as a <a href="https://github.com/JuliusDgenius/alx-portfolio_project">Portfolio Project</a> for <a href="https://www.alxafrica.com/">alx Africa.</a>
         </p>
         <div class="team">
             <h3>Meet the Team</h3>
             <ul>
                 <li>
-                    <h4>Team Member 1</h4>
+                    <h4>Julius Ibe</h4>
                     <p>
-                        <a href="https://linkedin.com/team-member-1">LinkedIn</a> |
-                        <a href="https://github.com/team-member-1">GitHub</a> |
-                        <a href="https://twitter.com/team-member-1">Twitter</a>
+                        <a target="_blank" href="https://www.linkedin.com/in/julius-ibe">LinkedIn</a> |
+                        <a target="_blank" href="https://github.com/JuliusDgenius">GitHub</a> |
+                        <a target="_blank" href="https://twitter.com/0xjulius_">Twitter</a>
                     </p>
                 </li>
                 <!-- Add more team members here -->
             </ul>
         </div>
-        <a href="https://github.com/your-repo" class="btn-primary">View GitHub Repository</a>
+        <a target="_blank" href="https://github.com/JuliusDgenius" class="btn-primary">View GitHub Repository</a>
     </section>
 
     <!-- Optional Video Section -->
