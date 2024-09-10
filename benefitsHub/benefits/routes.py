@@ -4,6 +4,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from benefitsHub import db, bcrypt, email
 from benefitsHub.models.base_model import Benefit, User, Post
 from benefitsHub.benefits.forms import BenefitForm
+from benefitsHub.benefits.utils import linkify
 import os
 from werkzeug.utils import secure_filename
 
@@ -34,18 +35,23 @@ def new_benefit():
                 flash('File successfully uploaded', 'success')
             except Exception as e:
                 flash(f'Error: {e}', 'danger')
-                
+        
+        # Apply linkify and debug output
+        description_linkified = linkify(form.description.data)
+        requirement_linkified = linkify(form.benefit_requirement.data)
+        print("Linkified Description:", description_linkified)
+        print("Linkified Requirement:", requirement_linkified)
+
         benefit = Benefit(name=form.name.data,
-                          description=form.description.data,
+                          description=description_linkified,
                           benefit_image=file_path,
-                          benefit_requirement=form.benefit_requirement.data,
+                          benefit_requirement=requirement_linkified,
                           benefit_link=form.benefit_link.data,
                           benefit_start_date=form.benefit_start_date.data,
                           benefit_end_date=form.benefit_end_date.data,
                           benefit_status=form.benefit_status.data,
                           benefit_created_by=current_user.username,
                           user_id=current_user.id)
-    
         db.session.add(benefit)
         db.session.commit()
         flash(f'Benefit {form.name.data} has been created!', 'success')
@@ -82,6 +88,7 @@ def explore_benefits():
 def benefit(benefit_id):
     """View a single benefit by its id"""
     benefit = Benefit.query.get_or_404(benefit_id)
+    print(f"benefit: {benefit}")
     return render_template('benefit.html', title='benefit.name', benefit=benefit)
 
 

@@ -1,3 +1,5 @@
+import re
+
 # helper functions
 def linkify(text):
     """Helper function to find URLs in text and turn them into clickable links"""

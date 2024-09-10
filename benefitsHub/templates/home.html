@@ -1,12 +1,73 @@
 {% extends "layout.html" %}
 {% block content %}
-        
-        <h1>Welcome To BenefitsHub Nigeria.</h1><br>
-        <p>Get all information about government benefits as soon as they are posted. You no longer have to miss out on any schemes or programs because you did not know about them. Here you will find all benefits in one place.</p>
-            <!-- banner image  -->
-            <img src="{{ url_for('static', filename='assets/img_2.jpeg') }}" alt="BenefitsHub-Nigeria" class="img-fluid banner"><br>
-        
-        <h2>Check out some mouth-watering benefits below or click the explore benefits button to view all.
-        </h2><br>
-{% endblock content %}
 
+    <!-- Intro Section -->
+    <section id="intro" class="intro-section">
+        <div class="intro-content">
+            <img src="{{ url_for('static', filename='assets/img_2.jpeg') }}" alt="Project Cover" class="cover-image">
+            <h1>BenefitsHub Nigeria</h1>
+            <p>Your one-stop hub for government benefits in Nigeria</p>
+            <a href="{{ url_for('benefits.explore_benefits') }}" class="btn-primary">Explore Benefits</a>
+        </div>
+    </section>
+
+    <!-- Feature Section -->
+    <section id="features" class="features-section">
+        <h2>Key Features</h2>
+        <div class="features">
+            <!-- Feature 1 -->
+            <div class="feature">
+                <img src="{{ url_for('static', filename='assets/feature1.jpg') }}" alt="Feature 1">
+                <h3>Real-time Updates</h3>
+                <p>Stay updated with real-time notifications on newly posted benefits from various government schemes.</p>
+            </div>
+            <!-- Feature 2 -->
+            <div class="feature">
+                <img src="{{ url_for('static', filename='assets/feature2.jpg') }}" alt="Feature 2">
+                <h3>Search Benefits by Category</h3>
+                <p>Easily search and filter benefits by categories such as education, healthcare, employment, and more.</p>
+            </div>
+            <!-- Feature 3 -->
+            <div class="feature">
+                <img src="{{ url_for('static', filename='assets/feature3.jpg') }}" alt="Feature 3">
+                <h3>Easy Application Process</h3>
+                <p>Seamlessly apply for benefits online through our platform with step-by-step guidance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <h2>About BenefitsHub Nigeria</h2>
+        <p>
+            The inspiration for BenefitsHub Nigeria came from the lack of centralized information about government benefits. 
+            Our mission is to help Nigerians access available government benefits more easily and efficiently.
+            This project was developed as a Portfolio Project for Holberton School.
+        </p>
+        <div class="team">
+            <h3>Meet the Team</h3>
+            <ul>
+                <li>
+                    <h4>Team Member 1</h4>
+                    <p>
+                        <a href="https://linkedin.com/team-member-1">LinkedIn</a> |
+                        <a href="https://github.com/team-member-1">GitHub</a> |
+                        <a href="https://twitter.com/team-member-1">Twitter</a>
+                    </p>
+                </li>
+                <!-- Add more team members here -->
+            </ul>
+        </div>
+        <a href="https://github.com/your-repo" class="btn-primary">View GitHub Repository</a>
+    </section>
+
+    <!-- Optional Video Section -->
+    <section id="video" class="video-section">
+        <h2>Our Journey</h2>
+        <video controls>
+            <source src="{{ url_for('static', filename='assets/project_intro.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+
+{% endblock content %}

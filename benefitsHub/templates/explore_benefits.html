@@ -12,15 +12,16 @@
               <h5>Description</h5>
               <p>{{ benefit.description | safe }}</p>
               <h5>Requirement</h5>
-              <p>{{ benefit.requirement | safe }}</p>
+              <p>{{ benefit.benefit_requirement | safe }}</p>
               <div article-metadata>
                 <a class="mb-3 anchor-tag" href="{{ url_for('benefits.user_benefits', username=benefit.benefit_created_by) }}">Post By {{ benefit.benefit_created_by }}</a> On {{ benefit.benefit_created_on.strftime('%Y-%m-%d') }}<br>
                 <small class="text-muted">
                   Start Date: {{ benefit.benefit_start_date.strftime('%Y-%m-%d') }}<br>
                   End Date: {{ benefit.benefit_end_date.strftime('%Y-%m-%d') }}
                 </small>
+                {{benefit.id}}
               </div>
-              <button data-link="{{ benefit.link }}" class="btn btn-primary apply-button">Apply</button>
+              <button data-link="{{ benefit.benefit_link }}" class="btn btn-primary apply-button">Apply</button>
               </div>
             </div>
         {% endfor %}
