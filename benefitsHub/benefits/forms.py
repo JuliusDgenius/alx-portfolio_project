@@ -8,7 +8,7 @@ class BenefitForm(FlaskForm):
     """Class to create a new benefit"""
     name = StringField('Name', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
-    benefit_image = FileField('Benefit Image', validators=[FileAllowed(['jpg', 'png'])])
+    benefit_image = FileField('Benefit Image', validators=[FileAllowed(['jpg', 'jpeg', 'png'])])
     benefit_requirement = StringField('Benefit Requirement', validators=[DataRequired()])
     benefit_link = StringField('Benefit Link', validators=[DataRequired()])
     benefit_start_date = DateField('Benefit Start Date', validators=[DataRequired()], format='%Y-%m-%d')

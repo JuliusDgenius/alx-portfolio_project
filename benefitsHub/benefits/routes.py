@@ -4,7 +4,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from benefitsHub import db, bcrypt, email
 from benefitsHub.models.base_model import Benefit, User, Post
 from benefitsHub.benefits.forms import BenefitForm
-from benefitsHub.benefits.utils import linkify
+from benefitsHub.benefits.utils import linkify, save_picture
 import os
 from werkzeug.utils import secure_filename
 
@@ -17,34 +17,19 @@ benefits = Blueprint('benefits', __name__)
 def new_benefit():
     """Flask route to create a new benefit""" 
     form = BenefitForm()
+    picture_file = None
     if form.validate_on_submit():
-        file = form.benefit_image.data
-        file_path = None
-        if file:
-            filename = secure_filename(file.filename)
-            print(f"Original filename: {file.filename}")
-            print(f"Sanitized filename: {filename}")
-            file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-            print(f"File path: {file_path}")
-            if os.path.exists(file_path):
-                filename = f"{os.path.splitext(filename)[0]}_{int(time.time())}{os.path.splitext(filename)[1]}"
-                file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-                print(f"New file path: {file_path}")
-            try:
-                file.save(file_path)
-                flash('File successfully uploaded', 'success')
-            except Exception as e:
-                flash(f'Error: {e}', 'danger')
+       if form.benefit_image.data:
+        picture_file = save_picture(form.benefit_image.data)
+        print(f"picture_file: {picture_file}")
         
-        # Apply linkify and debug output
+       # Apply linkify and debug output
         description_linkified = linkify(form.description.data)
         requirement_linkified = linkify(form.benefit_requirement.data)
-        print("Linkified Description:", description_linkified)
-        print("Linkified Requirement:", requirement_linkified)
 
         benefit = Benefit(name=form.name.data,
                           description=description_linkified,
-                          benefit_image=file_path,
+                          benefit_image=picture_file,
                           benefit_requirement=requirement_linkified,
                           benefit_link=form.benefit_link.data,
                           benefit_start_date=form.benefit_start_date.data,
@@ -54,9 +39,11 @@ def new_benefit():
                           user_id=current_user.id)
         db.session.add(benefit)
         db.session.commit()
+        print(f"Image: {picture_file}")
         flash(f'Benefit {form.name.data} has been created!', 'success')
         return redirect(url_for('benefits.user_benefits', username=current_user.username))
-    return render_template('create_benefit.html', title='New Benefit', form=form)
+    image_file = url_for('static', filename='uploads/' + picture_file)
+    return render_template('create_benefit.html', title='New Benefit', image_file=image_file, form=form)
 
 
 @benefits.route("/user_benefit/<string:username>")
@@ -88,7 +75,6 @@ def explore_benefits():
 def benefit(benefit_id):
     """View a single benefit by its id"""
     benefit = Benefit.query.get_or_404(benefit_id)
-    print(f"benefit: {benefit}")
     return render_template('benefit.html', title='benefit.name', benefit=benefit)
 
 
@@ -102,6 +88,7 @@ def update_benefit(benefit_id):
     form = BenefitForm()
     if form.validate_on_submit():
         benefit.name = form.name.data
+        benefit.benefit_image = form.benefit_image.data
         benefit.benefit_requirement = form.benefit_requirement.data
         benefit.description = form.description.data
         benefit.benefit_link = form.benefit_link.data
