@@ -17,3 +17,9 @@ function linkify(text) {
     return `<a href="${url}" target="_blank">${url}</a>`;
   });
 }
+
+// Simulate loading time or condition
+setTimeout(function() {
+    document.getElementById('splash-screen').style.display = 'none';
+    document.getElementById('container').style.display = 'block';
+}, 5000); // Change to desired time or loading condition

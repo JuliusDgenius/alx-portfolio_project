@@ -1,10 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
-
     <!-- Intro Section -->
     <section id="intro" class="intro-section">
         <div class="intro-content">
-            <img src="{{ url_for('static', filename='assets/cover-images/cover-image_01.jpeg') }}" alt="Project Cover" class="cover-image">
+            <img class="banner" src="{{ url_for('static', filename='assets/cover-images/cover-image_5.jpg') }}" alt="Project Cover" class="cover-image">
             <h1>BenefitsHub Nigeria</h1>
             <h6>Your one-stop hub for government benefits in Nigeria.</h6>
             <a href="{{ url_for('benefits.explore_benefits') }}" class="btn-primary">Explore Benefits</a>
@@ -12,29 +11,30 @@
     </section>
 
     <!-- Feature Section -->
-    <section id="features" class="features-section row">
+    <section id="features" class="row features">
         <h2>Key Features</h2>
-        <div class="features">
+        <div class="image-container">
             <!-- Feature 1 -->
             <div class="feature">
                 <img class="feature-img" src="{{ url_for('static', filename='assets/img_0.jpeg') }}" alt="Feature 1">
                 <h3>Real-time Updates About Benefits You Can Apply To</h3>
-                <p>
+                <p class="text-start">
                     Stay updated with real-time notifications on newly posted benefits from various government schemes. No need to miss out on the action, just come here and find everything you need!
                 </p>
+                <a href="{{ url_for('benefits.explore_benefits') }}">See Updates</a>
             </div>
             <!-- Feature 2 -->
             <div class="feature">
                 <img class="feature-img" src="{{ url_for('static', filename='assets/img_1.jpeg') }}" alt="Feature 2">
                 <h3>Search Benefits by Category</h3>
-                <p>Easily search and filter benefits by categories such as education, healthcare, employment, and more. Seamlessly apply for benefits online through our platform with step-by-step guidance.</p>
+                <p class="text-start">Easily search and filter benefits by categories such as education, healthcare, employment, and more. Seamlessly apply for benefits online through our platform with step-by-step guidance.</p>
                 <a href="{{ url_for('benefits.explore_benefits') }}">Explore Here</a>
             </div>
             <!-- Feature 3 -->
             <div class="feature">
                 <img class="feature-img" src="{{ url_for('static', filename='assets/img_2.jpeg') }}" alt="Feature 3">
                 <h3>Share Your Thoughts By Making Blog</h3>
-                <p>Create an account and blog your thoughts about government schemes and programs. Share tips and any other useful information.</p>
+                <p class="text-start">Create an account and blog your thoughts about government schemes and programs. Share tips and any other useful information.</p>
                 <a href="{{ url_for('posts.new_post') }}">Make A Post</a>
             </div>
         </div>
@@ -43,18 +43,18 @@
     <!-- About Section -->
     <section id="about" class="about-section">
         <h2>About BenefitsHub Nigeria</h2>
-        <p>
+        <p class="text-start">
             The inspiration for <b>BenefitsHub Nigeria</b> came from the lack of centralized information about government benefits. It is a website where you can explore and apply for all current benefits offered by goverment agencies in Nigeria. As you know, Information is crucial if you must become aware of government programs that you may benefit from, as of now, there is no single website that provides a well-curated list of available government benefits. <b>BenefitsHub</b> seeks to fill that vacuum by curating all government schemes and programs that are meant to assist citizens, especially unemployed citizens. It is your one-stop shop for everything empowerment, grants, low-interest loans and a wide range of other benefits offered by the government. We update you with all programs of government that are aimed as a palliative to cushion the effect of the global economic downturn.  Do not lose out on any government intervention because you missed the information. Simply create an account and login to apply and track the status of your application.
         </p>
-        <p>
+        <p class="text-start">
             Our mission is to help Nigerians access available government benefits more easily and efficiently.
-            This project was developed as a <a href="https://github.com/JuliusDgenius/alx-portfolio_project">Portfolio Project</a> for <a href="https://www.alxafrica.com/">alx Africa.</a>
+            This project was developed as a <a class="no-hover" href="https://github.com/JuliusDgenius/alx-portfolio_project">Portfolio Project</a> for <a class="no-hover" href="https://www.alxafrica.com/">alx Africa.</a>
         </p>
         <div class="team">
             <h3>Meet the Team</h3>
             <ul>
                 <li>
-                    <h4>Julius Ibe</h4>
+                    <h4>Julius Ibe - Fullstack.</h4>
                     <p>
                         <a target="_blank" href="https://www.linkedin.com/in/julius-ibe">LinkedIn</a> |
                         <a target="_blank" href="https://github.com/JuliusDgenius">GitHub</a> |
@@ -64,7 +64,7 @@
                 <!-- Add more team members here -->
             </ul>
         </div>
-        <a target="_blank" href="https://github.com/JuliusDgenius" class="btn-primary">View GitHub Repository</a>
+        <a target="_blank" href="https://github.com/JuliusDgenius/alx-portfolio_project" class="btn-primary">View GitHub Repository</a>
     </section>
 
     <!-- Optional Video Section -->
@@ -76,4 +76,36 @@
         </video>
     </section> -->
 
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <!-- Left Section: General Links -->
+          <div class="col-md-6">
+            <ul class="footer-links">
+              <li><a href="{{ url_for('main.home') }}">Home</a></li>
+              <li><a href="{{ url_for('main.about') }}">About</a></li>
+              <li><a href="{{ url_for('benefits.explore_benefits') }}">Explore Benefits</a></li>
+            </ul>
+          </div>
+          
+          <!-- Right Section: Conditional Links -->
+          <div class="col-md-6 text-md-right">
+            <ul class="footer-links">
+              {% if current_user.is_authenticated %}
+                  <li><a href="{{ url_for('benefits.new_benefit') }}">Create New Benefit</a></li>
+                  <li><a href="{{ url_for('posts.new_post') }}">Make A Post</a></li>
+                  <li><a href="{{ url_for('posts.view_posts') }}">View Posts</a></li>
+                  <li><a href="{{ url_for('users.logout') }}">Logout</a></li>
+                  <li><a class="scroll-to-top" href="#">Top &uarr;</a></li>
+              {% else %}
+                  <li><a href="{{ url_for('posts.view_posts') }}">View Posts</a></li>
+                  <li><a href="{{ url_for('users.register') }}">Register</a></li>
+                  <li><a href="{{ url_for('users.login') }}">Login</a></li>
+                  <li><a class="scroll-to-top" href="#">Top &uarr;</a></li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
 {% endblock content %}

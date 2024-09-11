@@ -10,9 +10,9 @@
                 <img class="rounded img-fluid account-img" src="{{ profile_pic }}" alt="Image of benefit">
               </div>
               <h5>Description</h5>
-              <p>{{ benefit.description | safe }}</p>
+              <p class="text-start">{{ benefit.description | safe }}</p>
               <h5>Requirement</h5>
-              <p>{{ benefit.benefit_requirement | safe }}</p>
+              <p class="text-start">{{ benefit.benefit_requirement | safe }}</p>
               <div article-metadata>
                 <a class="mb-3 anchor-tag" href="{{ url_for('benefits.user_benefits', username=benefit.benefit_created_by) }}">Post By {{ benefit.benefit_created_by }}</a> On {{ benefit.benefit_created_on.strftime('%Y-%m-%d') }}<br>
                 <small class="text-muted">
