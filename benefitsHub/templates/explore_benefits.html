@@ -7,7 +7,7 @@
               <div class="media-body">
               <h2><a class="anchor-tag" href="{{ url_for('benefits.benefit', benefit_id=benefit.id) }}"> {{ benefit.name }}</a></h2>
               <div class="media">
-                <img class="img-fluid account-img" src="{{ url_for('static', filename='uploads/' + benefit.benefit_image) }}" alt="Image of benefit">
+                <img class="img-fluid account-img" src="{{ image_file }}" alt="Image of benefit">
               </div>
               <h5>Description</h5>
               <p class="text-start">{{ benefit.description | safe }}</p>

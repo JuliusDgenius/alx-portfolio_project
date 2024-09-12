@@ -9,9 +9,9 @@
                 <img class="rounded img-fluid account-img" src="{{ image_file }}" alt="User profile picture">
               </div>
               <h5>Description</h5>
-              <p>{{ benefit.description | safe }}</p>
+              <p class="text-start">{{ benefit.description | safe }}</p>
               <h5>Requirement</h5>
-              <p>{{ benefit.requirement | safe }}</p>
+              <p class="text-start">{{ benefit.benefit_requirement | safe }}</p>
               <p> Posted on: <span>{{ benefit.benefit_start_date.strftime('%Y-%m-%d') }}</span><br>
               Ends on: <span>{{ benefit.benefit_end_date.strftime('%Y-%m-%d') }}</span></p>
 

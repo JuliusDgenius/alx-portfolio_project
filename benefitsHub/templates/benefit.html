@@ -6,9 +6,13 @@
         <a class="mr-2 anchor-tag" href="{{ url_for('benefits.user_benefits', username=benefit.benefit_created_by) }}">Posted By {{ benefit.benefit_created_by }}</a>
         On <small class="text-muted">{{ benefit.benefit_created_on.strftime('%Y-%m-%d') }}</small>
       </div>
-      <h2 class="article-title">{{ benefit.name }}</h2>
-      <p class="article-content">{{ benefit.description }}</p>
-      <p class="article-content">{{ benefit.benefit_requirement }}</p>
+        <h2 class="article-title">{{ benefit.name }}</h2>
+        <h3 class="text-danger">Description</h3>
+        <p class="article-content text-start text-info">{{ benefit.description }}</p>
+      <div>
+        <h3 class="text-danger">Requirement</h3>
+        <p class="article-content text-start text-info">{{ benefit.benefit_requirement }}</p>
+      </div>
       <div class="mb-3">
         <img class="article-img" src="{{ benefit.benefit_image }}" alt="Image of benefit">
       </div>

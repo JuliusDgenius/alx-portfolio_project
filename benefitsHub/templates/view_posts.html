@@ -7,7 +7,7 @@
               <a class="mr-2 anchor-tag" href="{{ url_for('users.user_posts', username=post.author) }}">{{ post.author }}</a>
               <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
             </div>
-            <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <h2><a class="article-title text-start" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
             <p class="article-content text-start">{{ post.content }}</p>
           </div>
         </article>

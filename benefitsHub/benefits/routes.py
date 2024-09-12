@@ -21,6 +21,7 @@ def new_benefit():
     if form.validate_on_submit():
        if form.benefit_image.data:
         picture_file = save_picture(form.benefit_image.data)
+        benefit_image = picture_file
         print(f"picture_file: {picture_file}")
         
        # Apply linkify and debug output
@@ -29,7 +30,7 @@ def new_benefit():
 
         benefit = Benefit(name=form.name.data,
                           description=description_linkified,
-                          benefit_image=picture_file,
+                          benefit_image=str(picture_file),
                           benefit_requirement=requirement_linkified,
                           benefit_link=form.benefit_link.data,
                           benefit_start_date=form.benefit_start_date.data,
@@ -42,7 +43,10 @@ def new_benefit():
         print(f"Image: {picture_file}")
         flash(f'Benefit {form.name.data} has been created!', 'success')
         return redirect(url_for('benefits.user_benefits', username=current_user.username))
-    image_file = url_for('static', filename='uploads/' + picture_file)
+    if picture_file:
+        image_file = url_for('static', filename='uploads/' + benefit.benefit_image)
+    else:
+        image_file = None
     return render_template('create_benefit.html', title='New Benefit', image_file=image_file, form=form)
 
 
