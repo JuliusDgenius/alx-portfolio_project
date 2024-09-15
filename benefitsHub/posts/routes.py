@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""
+This module contains the routes for the posts blueprint.
+"""
 from flask import (render_template, url_for, flash,
                    redirect, request, Blueprint, abort)
 from flask_login import current_user, login_required
@@ -31,7 +35,8 @@ def new_post():
 def view_posts():
     """Flask route to view posts made by users"""
     page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    posts = Post.query.order_by(Post.date_posted.desc())\
+        .paginate(page=page, per_page=5)
     return render_template('view_posts.html', posts=posts, title='View Posts')
 
 
@@ -59,7 +64,9 @@ def update_post(post_id):
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
-    return render_template('create_post.html', title='Update Post', form=form, legend='Update Post')
+    return render_template('create_post.html',
+                           title='Update Post',
+                           form=form, legend='Update Post')
 
 
 @posts.route("/post/<int:post_id>/delete", methods=["POST"])

@@ -1,12 +1,10 @@
 from flask import (render_template, url_for, flash, redirect,
-                   request, Blueprint, current_app, abort)
-from flask_login import login_user, current_user, logout_user, login_required
-from benefitsHub import db, bcrypt, email
-from benefitsHub.models.base_model import Benefit, User, Post
+                   request, Blueprint, abort)
+from flask_login import current_user, login_required
+from benefitsHub import db
+from benefitsHub.models.base_model import Benefit, User
 from benefitsHub.benefits.forms import BenefitForm
 from benefitsHub.benefits.utils import linkify, save_picture
-import os
-from werkzeug.utils import secure_filename
 
 
 benefits = Blueprint('benefits', __name__)
@@ -19,12 +17,11 @@ def new_benefit():
     form = BenefitForm()
     picture_file = None
     if form.validate_on_submit():
-       if form.benefit_image.data:
-        picture_file = save_picture(form.benefit_image.data)
-        benefit_image = picture_file
-        print(f"picture_file: {picture_file}")
+        if form.benefit_image.data:
+            picture_file = save_picture(form.benefit_image.data)
+            benefit_image = picture_file
 
-       # Apply linkify and debug output
+        # Apply linkify and debug output
         description_linkified = linkify(form.description.data)
         requirement_linkified = linkify(form.benefit_requirement.data)
 
@@ -42,9 +39,11 @@ def new_benefit():
         db.session.commit()
         print(f"Image: {picture_file}")
         flash(f'Benefit {form.name.data} has been created!', 'success')
-        return redirect(url_for('benefits.user_benefits', username=current_user.username))
+        return redirect(url_for('benefits.user_benefits',
+                                username=current_user.username))
     image_file = url_for('static', filename='uploads/' + str(picture_file))
-    return render_template('create_benefit.html', title='New Benefit', image_file=image_file, form=form)
+    return render_template('create_benefit.html', title='New Benefit',
+                           image_file=image_file, form=form)
 
 
 @benefits.route("/user_benefit/<string:username>")
@@ -53,21 +52,22 @@ def user_benefits(username):
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
     Benefit.query.filter_by(user=user)\
-                            .order_by(Benefit.benefit_created_on\
-                            .desc()).paginate(page=1)
+        .order_by(Benefit.benefit_created_on
+                  .desc()).paginate(page=1)
     benefits = Benefit.query.filter_by(user=user)\
-            .order_by(Benefit.benefit_created_on.desc())\
-            .paginate(page=page, per_page=10)
-    return render_template('user_benefits.html', title='user benefits', benefits=benefits, user=user)
+        .order_by(Benefit.benefit_created_on.desc())\
+        .paginate(page=page, per_page=10)
+    return render_template('user_benefits.html', title='user benefits',
+                           benefits=benefits, user=user)
 
 
 @benefits.route("/explore_benefits")
 def explore_benefits():
-    """Route tp view all benefits"""
+    """Route to view all benefits"""
     page = request.args.get('page', type=int)
     benefits = Benefit.query\
-               .order_by(Benefit.benefit_created_on\
-               .desc()).paginate(page=page, per_page=10)
+        .order_by(Benefit.benefit_created_on
+                  .desc()).paginate(page=page, per_page=10)
     return render_template('explore_benefits.html',
                            benefits=benefits, title='Explore Benefits')
 
@@ -76,7 +76,8 @@ def explore_benefits():
 def benefit(benefit_id):
     """View a single benefit by its id"""
     benefit = Benefit.query.get_or_404(benefit_id)
-    return render_template('benefit.html', title=f'benefit {benefit.id}', benefit=benefit)
+    return render_template('benefit.html', title=f'benefit {benefit.id}',
+                           benefit=benefit)
 
 
 @benefits.route("/benefit/<int:benefit_id>/update", methods=["GET", "POST"])
@@ -109,7 +110,8 @@ def update_benefit(benefit_id):
         form.benefit_end_date.data = benefit.benefit_end_date
         form.benefit_created_by.data = benefit.benefit_created_by
         form.benefit_updated_on.data = benefit.benefit_updated_on
-    return render_template('create_benefit.html', title='Update Benefit', form=form, legend='Update Benefit')
+    return render_template('create_benefit.html', title='Update Benefit',
+                           form=form, legend='Update Benefit')
 
 
 @benefits.route("/benefit/<int:benefit_id>/delete", methods=["POST"])
