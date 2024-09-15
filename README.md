@@ -90,7 +90,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-Julius Ibe - (https://twitter.com/@0xjulius_) - ibejulius1@gmail.com
+[Julius Ibe](https://twitter.com/@0xjulius_) - ibejulius1@gmail.com
 
 Project Link: [https://github.com/JuliusDgenius/alx-portfolio/]
 
@@ -100,3 +100,4 @@ Project Link: [https://github.com/JuliusDgenius/alx-portfolio/]
 - [SQLAlchemy Documentation](https://docs.sqlalchemy.org/)
 - [Bootstrap](https://getbootstrap.com/)
 - [Font Awesome](https://fontawesome.com/)
+- [Corey Shafer](https://www.youtube.com/c/coreymschafer)
