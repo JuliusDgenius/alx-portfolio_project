@@ -3,7 +3,8 @@
     <h1>Explore All Benefits</h1>
     <div class="row">
         {% for benefit in benefits.items %}
-            <div class="col-12 col-md-6 mb-4 media content-section">
+            <div class="col-12 col-md-6 mb-4 benefit-card">
+              <div class="content-section">
               <div class="media-body">
               <h2><a class="anchor-tag" href="{{ url_for('benefits.benefit', benefit_id=benefit.id) }}"> {{ benefit.name }}</a></h2>
               <div class="media">
@@ -22,6 +23,7 @@
                 {{benefit.id}}
               </div>
               <button data-link="{{ benefit.benefit_link }}" class="btn btn-primary apply-button">Apply</button>
+              </div>
               </div>
             </div>
         {% endfor %}
