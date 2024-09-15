@@ -5,7 +5,7 @@ BenefitsHub Nigeria is a web application that connects Nigerian citizens with go
 You can also make blog posts on any topic and share them with the world.
 
 
-Features
+## Features
 
 - User registration and authentication for both citizens and government agencies
 - Profile management for users
@@ -14,7 +14,7 @@ Features
 - Application process for citizens to request benefits
 - Admin dashboard for managing users and benefits
 
-Technologies Used
+## Technologies Used
 
 - Python 3.8+
 - Flask web framework
@@ -23,7 +23,7 @@ Technologies Used
 - HTML, CSS, JavaScript
 - Bootstrap for responsive design
 
-Installation
+## Installation
 
 1. Clone the repository:
    ```
@@ -65,7 +65,7 @@ Installation
    python wsgi.py
    ```
 
-Usage
+## Usage
 
 1. Access the application at `https://benefitshub.juliusdgenius.tech/`
 2. Register as a user or government agency
@@ -73,7 +73,7 @@ Usage
 4. Explore available benefits or create new benefit listings (for agencies)
 5. Apply for benefits or manage applications (depending on user type)
 
-Contributing
+## Contributing
 
 We welcome contributions to BenefitsHub Nigeria. Please follow these steps to contribute:
 
@@ -84,17 +84,17 @@ We welcome contributions to BenefitsHub Nigeria. Please follow these steps to co
 5. Push to the branch (`git push origin feature/AmazingFeature`)
 6. Open a Pull Request
 
-License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Contact
+## Contact
 
-Your Name - (https://twitter.com/@0xjulius_) - ibejulius1@gmail.com
+Julius Ibe - (https://twitter.com/@0xjulius_) - ibejulius1@gmail.com
 
 Project Link: [https://github.com/JuliusDgenius/alx-portfolio/]
 
-Acknowledgements
+## Acknowledgements
 
 - [Flask Documentation](https://flask.palletsprojects.com/)
 - [SQLAlchemy Documentation](https://docs.sqlalchemy.org/)
