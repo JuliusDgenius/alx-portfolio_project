@@ -42,7 +42,7 @@ def new_benefit():
         print(f"Image: {picture_file}")
         flash(f'Benefit {form.name.data} has been created!', 'success')
         return redirect(url_for('benefits.user_benefits', username=current_user.username))
-    image_file = url_for('static', filename='uploads/' + picture_file)
+    image_file = url_for('static', filename='uploads/' + str(picture_file))
     return render_template('create_benefit.html', title='New Benefit', image_file=image_file, form=form)
 
 
@@ -57,7 +57,7 @@ def user_benefits(username):
     benefits = Benefit.query.filter_by(user=user)\
             .order_by(Benefit.benefit_created_on.desc())\
             .paginate(page=page, per_page=10)
-    return render_template('user_benefits.html', benefits=benefits, user=user)
+    return render_template('user_benefits.html', title='user benefits', benefits=benefits, user=user)
 
 
 @benefits.route("/explore_benefits")
@@ -75,7 +75,7 @@ def explore_benefits():
 def benefit(benefit_id):
     """View a single benefit by its id"""
     benefit = Benefit.query.get_or_404(benefit_id)
-    return render_template('benefit.html', title='benefit.name', benefit=benefit)
+    return render_template('benefit.html', title=f'benefit {benefit.id}', benefit=benefit)
 
 
 @benefits.route("/benefit/<int:benefit_id>/update", methods=["GET", "POST"])
