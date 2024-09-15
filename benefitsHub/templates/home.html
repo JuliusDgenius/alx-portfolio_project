@@ -75,37 +75,4 @@
             Your browser does not support the video tag.
         </video>
     </section> -->
-
-    <footer class="footer">
-      <div class="container">
-        <div class="row">
-          <!-- Left Section: General Links -->
-          <div class="col-md-6">
-            <ul class="footer-links">
-              <li><a href="{{ url_for('main.home') }}">Home</a></li>
-              <li><a href="{{ url_for('main.about') }}">About</a></li>
-              <li><a href="{{ url_for('benefits.explore_benefits') }}">Explore Benefits</a></li>
-            </ul>
-          </div>
-          
-          <!-- Right Section: Conditional Links -->
-          <div class="col-md-6 text-md-right">
-            <ul class="footer-links">
-              {% if current_user.is_authenticated %}
-                  <li><a href="{{ url_for('benefits.new_benefit') }}">Create New Benefit</a></li>
-                  <li><a href="{{ url_for('posts.new_post') }}">Make A Post</a></li>
-                  <li><a href="{{ url_for('posts.view_posts') }}">View Posts</a></li>
-                  <li><a href="{{ url_for('users.logout') }}">Logout</a></li>
-                  <li><a class="scroll-to-top" href="#">Top &uarr;</a></li>
-              {% else %}
-                  <li><a href="{{ url_for('posts.view_posts') }}">View Posts</a></li>
-                  <li><a href="{{ url_for('users.register') }}">Register</a></li>
-                  <li><a href="{{ url_for('users.login') }}">Login</a></li>
-                  <li><a class="scroll-to-top" href="#">Top &uarr;</a></li>
-              {% endif %}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
 {% endblock content %}
