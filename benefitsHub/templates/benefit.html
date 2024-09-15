@@ -14,8 +14,10 @@
         <p class="article-content text-start text-info">{{ benefit.benefit_requirement }}</p>
       </div>
       <div class="mb-3">
-        <img class="article-img" src="{{ benefit.benefit_image }}" alt="Image of benefit">
+	 <img class="article-img" src="{{ url_for('static', filename= 'uploads/' + benefit.benefit_image) }}" alt="Image of benefit">
       </div>
+      <p class="article-content text-start">{{ benefit.description }}</p>
+      <p class="article-content text-start">{{ benefit.benefit_requirement }}</p>
       {% if benefit.benefit_created_by == current_user.username %}
         <div>
           <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('benefits.update_benefit', benefit_id=benefit.id) }}" >Update</a>

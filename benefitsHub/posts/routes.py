@@ -39,7 +39,7 @@ def view_posts():
 def post(post_id):
     """View a single post by its id"""
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title='post.title', post=post)
+    return render_template('post.html', title=f'post {post.id}', post=post)
 
 
 @posts.route("/post/<int:post_id>/update", methods=["GET", "POST"])

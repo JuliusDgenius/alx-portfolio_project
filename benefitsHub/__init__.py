@@ -1,5 +1,4 @@
 from flask import Flask
-from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
@@ -7,8 +6,6 @@ from flask_login import LoginManager, login_manager
 from flask_mail import Mail
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from benefitsHub.config import Config
-
-load_dotenv() # Load environment variables from .env
 
 
 db = SQLAlchemy()

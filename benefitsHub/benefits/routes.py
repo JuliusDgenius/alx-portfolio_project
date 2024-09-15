@@ -15,7 +15,7 @@ benefits = Blueprint('benefits', __name__)
 @benefits.route('/benefit/new', methods=["GET", "POST"])
 @login_required
 def new_benefit():
-    """Flask route to create a new benefit""" 
+    """Flask route to create a new benefit"""
     form = BenefitForm()
     picture_file = None
     if form.validate_on_submit():
@@ -23,7 +23,7 @@ def new_benefit():
         picture_file = save_picture(form.benefit_image.data)
         benefit_image = picture_file
         print(f"picture_file: {picture_file}")
-        
+
        # Apply linkify and debug output
         description_linkified = linkify(form.description.data)
         requirement_linkified = linkify(form.benefit_requirement.data)
@@ -43,10 +43,7 @@ def new_benefit():
         print(f"Image: {picture_file}")
         flash(f'Benefit {form.name.data} has been created!', 'success')
         return redirect(url_for('benefits.user_benefits', username=current_user.username))
-    if picture_file:
-        image_file = url_for('static', filename='uploads/' + benefit.benefit_image)
-    else:
-        image_file = None
+    image_file = url_for('static', filename='uploads/' + str(picture_file))
     return render_template('create_benefit.html', title='New Benefit', image_file=image_file, form=form)
 
 
@@ -61,7 +58,7 @@ def user_benefits(username):
     benefits = Benefit.query.filter_by(user=user)\
             .order_by(Benefit.benefit_created_on.desc())\
             .paginate(page=page, per_page=10)
-    return render_template('user_benefits.html', benefits=benefits, user=user)
+    return render_template('user_benefits.html', title='user benefits', benefits=benefits, user=user)
 
 
 @benefits.route("/explore_benefits")
@@ -79,7 +76,7 @@ def explore_benefits():
 def benefit(benefit_id):
     """View a single benefit by its id"""
     benefit = Benefit.query.get_or_404(benefit_id)
-    return render_template('benefit.html', title='benefit.name', benefit=benefit)
+    return render_template('benefit.html', title=f'benefit {benefit.id}', benefit=benefit)
 
 
 @benefits.route("/benefit/<int:benefit_id>/update", methods=["GET", "POST"])
@@ -103,7 +100,7 @@ def update_benefit(benefit_id):
         db.session.commit()
         flash('Your benefit has been updated!', 'success')
         return redirect(url_for('benefits.benefit', benefit_id=benefit.id))
-    elif request.method == 'GET': 
+    elif request.method == 'GET':
         form.name.data = benefit.name
         form.benefit_requirement.data = benefit.benefit_requirement
         form.description.data = benefit.description

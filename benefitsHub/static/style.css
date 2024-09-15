@@ -4,23 +4,6 @@ body {
   margin-top: 5rem;
 }
 
-.splash-screen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 350vh;
-  background: white; /* Splash screen background color */
-  position: absolute;
-  width: 90%;
-  top: 50;
-  left: 10;
-  right: 50;
-  bottom: 90;
-}
-.splash-screen img {
-  max-width: 100%; /* Adjust size as needed */
-  object-fit: cover;
-}
 .content {
   display: none; /* Hide content initially */
 }
@@ -318,3 +301,9 @@ p a:hover {
   text-decoration: underline;
 }
 
+.benefit-card {
+    border: 1px solid #ddd; /* Add a border around each card */
+    border-radius: 1px; /* Optional: add some rounded corners */
+    padding: 10px; /* Add some padding */
+    background-color: #f9f9f9; /* Background color */
+}
