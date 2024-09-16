@@ -69,44 +69,45 @@
         </div>
     </main>
 </div>
-</body>
-<footer class="footer">
-    <div class="container">
-      <div class="row">
-        <!-- Left Section: General Links -->
-        <div class="col-md-6">
-          <ul class="footer-links">
-            <li><a href="{{ url_for('main.home') }}">Home</a></li>
-            <li><a href="{{ url_for('main.about') }}">About</a></li>
-            <li><a href="{{ url_for('benefits.explore_benefits') }}">Explore Benefits</a></li>
-          </ul>
-        </div>
-        
-        <!-- Right Section: Conditional Links -->
-        <div class="col-md-6 text-md-right">
-          <ul class="footer-links">
-            {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('benefits.new_benefit') }}">Create New Benefit</a></li>
-                <li><a href="{{ url_for('posts.new_post') }}">Make A Post</a></li>
-                <li><a href="{{ url_for('posts.view_posts') }}">View Posts</a></li>
-                <li><a href="{{ url_for('users.logout') }}">Logout</a></li>
-                <li><a class="scroll-to-top" href="#">Top &uarr;</a></li>
-            {% else %}
-                <li><a href="{{ url_for('posts.view_posts') }}">View Posts</a></li>
-                <li><a href="{{ url_for('users.register') }}">Register</a></li>
-                <li><a href="{{ url_for('users.login') }}">Login</a></li>
-                <li><a class="scroll-to-top" href="#">Top &uarr;</a></li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
-<!-- JavaScript -->
-<script src="{{ url_for('static', filename='index.js') }}"></script>
+{% block extra_scripts %}
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+{% endblock %}
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <!-- Left Section: General Links -->
+      <div class="col-md-6">
+        <ul class="footer-links">
+          <li><a href="{{ url_for('main.home') }}">Home</a></li>
+          <li><a href="{{ url_for('main.about') }}">About</a></li>
+          <li><a href="{{ url_for('benefits.explore_benefits') }}">Explore Benefits</a></li>
+        </ul>
+      </div>
+      
+      <!-- Right Section: Conditional Links -->
+      <div class="col-md-6 text-md-right">
+        <ul class="footer-links">
+          {% if current_user.is_authenticated %}
+              <li><a href="{{ url_for('benefits.new_benefit') }}">Create New Benefit</a></li>
+              <li><a href="{{ url_for('posts.new_post') }}">Make A Post</a></li>
+              <li><a href="{{ url_for('posts.view_posts') }}">View Posts</a></li>
+              <li><a href="{{ url_for('users.logout') }}">Logout</a></li>
+              <li><a class="scroll-to-top" href="#">Top &uarr;</a></li>
+          {% else %}
+              <li><a href="{{ url_for('posts.view_posts') }}">View Posts</a></li>
+              <li><a href="{{ url_for('users.register') }}">Register</a></li>
+              <li><a href="{{ url_for('users.login') }}">Login</a></li>
+              <li><a class="scroll-to-top" href="#">Top &uarr;</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
 </body>
 </html>

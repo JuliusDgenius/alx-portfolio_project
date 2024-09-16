@@ -18,6 +18,7 @@ cover_images = [
     'assets/cover-images/cover-image_8.jpeg',
 ]
 
+
 @main.route("/")
 @main.route("/home")
 def home():
@@ -30,7 +31,7 @@ def home():
         order_by(Benefit.benefit_created_on.desc()).\
         paginate(page=page, per_page=6)
     
-    return render_template('home.html', benefits=benefits, coverImages=json.dumps(cover_images))
+    return render_template('home.html', benefits=benefits, coverImages=cover_images)
 
 
 @main.route("/about")

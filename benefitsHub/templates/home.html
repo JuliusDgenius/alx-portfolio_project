@@ -76,3 +76,9 @@
         </video>
     </section> -->
 {% endblock content %}
+
+{% block extra_scripts %}
+<script type="text/javascript">
+    var coverImages = '{{ coverImages|safe }}';
+</script>
+{% endblock %}
