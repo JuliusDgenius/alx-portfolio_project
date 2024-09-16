@@ -1,13 +1,12 @@
+"""Routes for the users module"""
 from flask import (render_template, url_for, flash, redirect, request,
-                   Blueprint, current_app)
-from benefitsHub import db, bcrypt, email
+                   Blueprint)
+from benefitsHub import db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
-import os
 from benefitsHub.models.base_model import User, Post
 from benefitsHub.users.forms import (RegistrationForm, LoginForm,
                                      UpdateAccountForm, RequestResetForm,
                                      ResetPasswordForm)
-from werkzeug.utils import secure_filename
 from benefitsHub.users.utils import save_picture, send_reset_email
 
 
@@ -16,7 +15,12 @@ users = Blueprint('users', __name__)
 
 @users.route("/register", methods=["GET", "POST"])
 def register():
-    """Route to register the user"""
+    """
+    Route to register a new user.
+    
+    GET: Displays the registration form.
+    POST: Processes the form submission, creates a new user, and redirects to login.
+    """
     form = RegistrationForm()
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
@@ -36,7 +40,12 @@ def register():
 
 @users.route("/login", methods=["GET", "POST"])
 def login():
-    """Route to login the user"""
+    """
+    Route to log in a user.
+    
+    GET: Displays the login form.
+    POST: Authenticates the user and redirects to home or next page.
+    """
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = LoginForm()
@@ -56,7 +65,7 @@ def login():
 
 @users.route("/logout")
 def logout():
-    """Route to logout the user"""
+    """Route to log out the current user."""
     logout_user()
     return redirect(url_for('main.home'))
 
@@ -64,7 +73,12 @@ def logout():
 @users.route('/account', methods=["GET", "POST"])
 @login_required  # login is required to access this route.
 def account():
-    """Route to update the user's account"""
+    """
+    Route to update the user's account information.
+    
+    GET: Displays the account update form.
+    POST: Processes the form submission and updates the user's information.
+    """
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.update_picture.data:
@@ -86,7 +100,11 @@ def account():
 
 @users.route("/user/<string:username>")
 def user_posts(username):
-    """Route to view the user's posts"""
+    """
+    Route to view a specific user's posts.
+    
+    Displays paginated posts for the given username.
+    """
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
     posts = Post.query.filter_by(author=user.username)\
@@ -97,7 +115,12 @@ def user_posts(username):
 
 @users.route('/reset_password', methods=["GET", "POST"])
 def reset_request():
-    """Request a password reset"""
+    """
+    Route to request a password reset.
+    
+    GET: Displays the password reset request form.
+    POST: Processes the form and sends a reset email if valid.
+    """
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = RequestResetForm()
@@ -113,7 +136,12 @@ def reset_request():
 
 @users.route('/reset_password/<token>', methods=["GET", "POST"])
 def reset_token(token):
-    """Request a password reset"""
+    """
+    Route to reset password using a token.
+    
+    GET: Displays the password reset form.
+    POST: Processes the form and updates the user's password if valid.
+    """
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     user = User.verify_reset_token(token)

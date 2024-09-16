@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 This module contains the routes for the posts blueprint.
 """

@@ -1,3 +1,6 @@
+"""
+This module defines the forms for the application.
+"""
 from wtforms import StringField, SubmitField, DateField, SelectField
 from wtforms.validators import DataRequired
 from flask_wtf import FlaskForm

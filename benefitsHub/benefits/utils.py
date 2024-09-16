@@ -1,3 +1,6 @@
+"""
+This module defines the utils for the application.
+"""
 from flask import current_app
 import re
 import os

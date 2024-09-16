@@ -3,6 +3,16 @@ from benefitsHub.models.base_model import Benefit
 
 
 main = Blueprint('main', __name__)
+cover_images = [
+    "{{ url_for('static', filename='assets/cover-images/cover-image_1.jpeg') }}",
+    "{{ url_for('static', filename='assets/cover-images/cover-image_2.jpeg') }}",
+    "{{ url_for('static', filename='assets/cover-images/cover-image_3.jpeg') }}",
+    "{{ url_for('static', filename='assets/cover-images/cover-image_4.jpeg') }}",
+    "{{ url_for('static', filename='assets/cover-images/cover-image_5.jpeg') }}",
+    "{{ url_for('static', filename='assets/cover-images/cover-image_6.jpeg') }}",
+    "{{ url_for('static', filename='assets/cover-images/cover-image_7.jpeg') }}",
+    "{{ url_for('static', filename='assets/cover-images/cover-image_8.jpeg') }}",
+]
 
 
 @main.route("/")
@@ -18,4 +28,4 @@ def home():
 
 @main.route("/about")
 def about():
-    return render_template('about.html', title='About')
+    return render_template('about.html', title='About', cover_images=cover_images)

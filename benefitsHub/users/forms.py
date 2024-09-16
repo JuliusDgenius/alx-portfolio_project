@@ -1,3 +1,4 @@
+"""Forms for the users module"""
 from wtforms import (BooleanField, StringField, PasswordField, SubmitField,
                      DateField, SelectField)
 from flask_wtf import FlaskForm

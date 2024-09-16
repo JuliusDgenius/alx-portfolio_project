@@ -4,6 +4,11 @@ BenefitsHub Nigeria is a web application that connects Nigerian citizens with go
 
 You can also make blog posts on any topic and share them with the world.
 
+The project was built with love by [Julius Ibe](https://twitter.com/@0xjulius_).
+[LinkedIn](https://www.linkedin.com/in/julius-ibe/)
+Find it on [Github](https://github.com/JuliusDgenius/alx-portfolio_project)
+link to the live site [BenefitsHub Nigeria](https://benefitshub.juliusdgenius.tech/)
+
 
 ## Features
 
@@ -91,6 +96,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Contact
 
 [Julius Ibe](https://twitter.com/@0xjulius_) - ibejulius1@gmail.com
+[LinkedIn](https://www.linkedin.com/in/julius-ibe/)
 
 Project Link: [https://github.com/JuliusDgenius/alx-portfolio/]
 
