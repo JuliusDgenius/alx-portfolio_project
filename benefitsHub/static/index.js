@@ -19,19 +19,17 @@ function linkify(text) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Array of image paths
-    // const coverImages = [
-    //     "{{ url_for('static', filename='assets/cover-images/cover-image_1.jpeg') }}",
-    //     "{{ url_for('static', filename='assets/cover-images/cover-image_2.jpeg') }}",
-    //     "{{ url_for('static', filename='assets/cover-images/cover-image_3.jpeg') }}",
-    //     "{{ url_for('static', filename='assets/cover-images/cover-image_4.jpeg') }}",
-    //     "{{ url_for('static', filename='assets/cover-images/cover-image_5.jpeg') }}",
-    //     "{{ url_for('static', filename='assets/cover-images/cover-image_6.jpeg') }}",
-    //     "{{ url_for('static', filename='assets/cover-images/cover-image_7.jpeg') }}",
-    //     "{{ url_for('static', filename='assets/cover-images/cover-image_8.jpeg') }}",
-    // ];
-
     const coverImageElement = document.getElementById('coverImage');
+    const coverImages = [
+        'assets/cover-images/cover-image_1.jpeg',
+        'assets/cover-images/cover-image_2.jpeg',
+        'assets/cover-images/cover-image_3.jpeg',
+        'assets/cover-images/cover-image_4.jpeg',
+        'assets/cover-images/cover-image_5.jpeg',
+        'assets/cover-images/cover-image_6.jpeg',
+        'assets/cover-images/cover-image_7.jpeg',
+        'assets/cover-images/cover-image_8.jpeg',
+    ];
     let currentIndex = 0;
 
     function changeCoverPhoto() {
