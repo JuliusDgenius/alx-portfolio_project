@@ -50,12 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Change image every 5 seconds
-  let imageChangeInterval;
-  try {
-      imageChangeInterval = setInterval(changeCoverPhoto, 5000);
-  } catch (error) {
-      console.error('Error setting interval:', error);
-  }
+  let imageChangeInterval = setInterval(changeCoverPhoto, 5000);
 
   // Add error handling for image loading
   coverImageElement.onerror = function() {
@@ -66,8 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Clean up interval on page unload
   window.addEventListener('unload', function() {
-      if (imageChangeInterval) {
-          clearInterval(imageChangeInterval);
-      }
+      clearInterval(imageChangeInterval);
   });
 });

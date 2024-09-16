@@ -3,7 +3,7 @@
     <!-- Intro Section -->
     <section id="intro" class="intro-section">
         <div class="intro-content">
-            <img id="coverImage" class="banner" src="{{ coverImages|safe }}" alt="Project Cover" class="cover-image">
+            <img id="coverImage" class="banner cover-image" src="" alt="Project Cover">
             <h1 class="text-success">BenefitsHub Nigeria</h1>
             <h6>Your one-stop hub for government benefits in Nigeria.</h6>
             <a href="{{ url_for('benefits.explore_benefits') }}" class="btn-primary">Explore Benefits</a>
@@ -79,6 +79,6 @@
 
 {% block extra_scripts %}
 <script type="text/javascript">
-    var coverImages = '{{ coverImages|safe }}';
+    var coverImages = '{{ coverImages|tojson|safe }}';
 </script>
 {% endblock %}
