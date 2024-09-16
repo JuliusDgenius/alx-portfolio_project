@@ -20,6 +20,11 @@ function linkify(text) {
 
 document.addEventListener('DOMContentLoaded', function () {
     const coverImageElement = document.getElementById('coverImage');
+    if (!coverImageElement) {
+        console.error('Cover image element not found');
+        return;
+    }
+
     const coverImages = [
         'assets/cover-images/cover-image_1.jpeg',
         'assets/cover-images/cover-image_2.jpeg',
@@ -33,13 +38,15 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentIndex = 0;
 
     function changeCoverPhoto() {
-        coverImageElement.style.opacity = 0;
+        if (!coverImageElement) return;
+
+        coverImageElement.style.opacity = '0';
         
         setTimeout(() => {
             currentIndex = (currentIndex + 1) % coverImages.length;
             coverImageElement.src = coverImages[currentIndex];
-            coverImageElement.style.opacity = 1;
-        }, 500); // Changed from 5000 to 500 for a smoother transition
+            coverImageElement.style.opacity = '1';
+        }, 500);
     }
 
     // Set initial image
@@ -47,19 +54,28 @@ document.addEventListener('DOMContentLoaded', function () {
         coverImageElement.src = coverImages[currentIndex];
     } else {
         console.error('No cover images available');
+        return;
     }
 
     // Change image every 5 seconds
-    const imageChangeInterval = setInterval(changeCoverPhoto, 5000);
+    let imageChangeInterval;
+    try {
+        imageChangeInterval = setInterval(changeCoverPhoto, 5000);
+    } catch (error) {
+        console.error('Error setting interval:', error);
+    }
 
     // Add error handling for image loading
     coverImageElement.onerror = function() {
         console.error('Failed to load image:', coverImages[currentIndex]);
-        changeCoverPhoto(); // Skip to next image if current one fails to load
+        currentIndex = (currentIndex + 1) % coverImages.length;
+        coverImageElement.src = coverImages[currentIndex];
     };
 
     // Clean up interval on page unload
     window.addEventListener('unload', function() {
-        clearInterval(imageChangeInterval);
+        if (imageChangeInterval) {
+            clearInterval(imageChangeInterval);
+        }
     });
 });
