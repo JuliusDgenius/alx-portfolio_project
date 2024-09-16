@@ -39,10 +39,13 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Set initial image
-  if (coverImages && coverImages.length > 0) {
+  // Check if coverImages is defined in the global scope
+  if (typeof coverImages !== 'undefined' && Array.isArray(coverImages) && coverImages.length > 0) {
       coverImageElement.src = coverImages[currentIndex];
   } else {
-      console.error('No cover images available');
+      console.error('coverImages is not defined or is empty');
+      // Fallback to a default image or handle the error as needed
+      coverImageElement.src = '/static/assets/cover-images/cover-image_1.jpeg'; // Adjust the path as necessary
       return;
   }
 
