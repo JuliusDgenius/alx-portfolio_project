@@ -19,63 +19,52 @@ function linkify(text) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    const coverImageElement = document.getElementById('coverImage');
-    if (!coverImageElement) {
-        console.error('Cover image element not found');
-        return;
-    }
+  const coverImageElement = document.getElementById('coverImage');
+  if (!coverImageElement) {
+      console.error('Cover image element not found');
+      return;
+  }
 
-    const coverImages = [
-        'assets/cover-images/cover-image_1.jpeg',
-        'assets/cover-images/cover-image_2.jpeg',
-        'assets/cover-images/cover-image_3.jpeg',
-        'assets/cover-images/cover-image_4.jpeg',
-        'assets/cover-images/cover-image_5.jpeg',
-        'assets/cover-images/cover-image_6.jpeg',
-        'assets/cover-images/cover-image_7.jpeg',
-        'assets/cover-images/cover-image_8.jpeg',
-    ];
-    let currentIndex = 0;
+  let currentIndex = 0;
+  function changeCoverPhoto() {
+      if (!coverImageElement) return;
 
-    function changeCoverPhoto() {
-        if (!coverImageElement) return;
+      coverImageElement.style.opacity = '0';
+      
+      setTimeout(() => {
+          currentIndex = (currentIndex + 1) % coverImages.length;
+          coverImageElement.src = coverImages[currentIndex];
+          coverImageElement.style.opacity = '1';
+      }, 500);
+  }
 
-        coverImageElement.style.opacity = '0';
-        
-        setTimeout(() => {
-            currentIndex = (currentIndex + 1) % coverImages.length;
-            coverImageElement.src = coverImages[currentIndex];
-            coverImageElement.style.opacity = '1';
-        }, 500);
-    }
+  // Set initial image
+  if (coverImages && coverImages.length > 0) {
+      coverImageElement.src = coverImages[currentIndex];
+  } else {
+      console.error('No cover images available');
+      return;
+  }
 
-    // Set initial image
-    if (coverImages && coverImages.length > 0) {
-        coverImageElement.src = coverImages[currentIndex];
-    } else {
-        console.error('No cover images available');
-        return;
-    }
+  // Change image every 5 seconds
+  let imageChangeInterval;
+  try {
+      imageChangeInterval = setInterval(changeCoverPhoto, 5000);
+  } catch (error) {
+      console.error('Error setting interval:', error);
+  }
 
-    // Change image every 5 seconds
-    let imageChangeInterval;
-    try {
-        imageChangeInterval = setInterval(changeCoverPhoto, 5000);
-    } catch (error) {
-        console.error('Error setting interval:', error);
-    }
+  // Add error handling for image loading
+  coverImageElement.onerror = function() {
+      console.error('Failed to load image:', coverImages[currentIndex]);
+      currentIndex = (currentIndex + 1) % coverImages.length;
+      coverImageElement.src = coverImages[currentIndex];
+  };
 
-    // Add error handling for image loading
-    coverImageElement.onerror = function() {
-        console.error('Failed to load image:', coverImages[currentIndex]);
-        currentIndex = (currentIndex + 1) % coverImages.length;
-        coverImageElement.src = coverImages[currentIndex];
-    };
-
-    // Clean up interval on page unload
-    window.addEventListener('unload', function() {
-        if (imageChangeInterval) {
-            clearInterval(imageChangeInterval);
-        }
-    });
+  // Clean up interval on page unload
+  window.addEventListener('unload', function() {
+      if (imageChangeInterval) {
+          clearInterval(imageChangeInterval);
+      }
+  });
 });
