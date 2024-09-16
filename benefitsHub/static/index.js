@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
       console.error('coverImages is not defined or is empty');
       // Fallback to a default image or handle the error as needed
-      coverImageElement.src = '/static/assets/cover-images/cover-im.jpg'; // Adjust the path as necessary
+      coverImageElement.src = '/static/assets/cover-images/cover-image.jpg'; // Adjust the path as necessary
       return;
   }
 
