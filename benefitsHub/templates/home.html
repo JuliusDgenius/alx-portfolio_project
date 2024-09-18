@@ -3,14 +3,14 @@
     <!-- Intro Section -->
     <section id="intro" class="intro-section">
         <div class="intro-content">
-            <img id="coverImage" class="banner cover-image" src="" alt="Project Cover">
-            <h1 class="text-success">BenefitsHub Nigeria</h1>
+		<img class="banner" src="{{ url_for('static', filename='/assets/cover-images/cover-image_5.jpeg') }}" alt="Cover Image"> 
+	    <h1 class="text-success">BenefitsHub Nigeria</h1>
             <h6>Your one-stop hub for government benefits in Nigeria.</h6>
             <a href="{{ url_for('benefits.explore_benefits') }}" class="btn-primary">Explore Benefits</a>
         </div>
     </section>
 
-g   <!-- Feature Section -->
+   <!-- Feature Section -->
     <section id="features" class="row features">
         <h2>Key Features</h2>
         <div class="image-container">
@@ -76,10 +76,3 @@ g   <!-- Feature Section -->
         </video>
     </section> -->
 {% endblock content %}
-
-{% block extra_scripts %}
-<script type="text/javascript">
-    var coverImages = '{{ coverImages|tojson|safe }}';
-    console.log('coverImages in HTML:', coverImages);
-</script>
-{% endblock %}
