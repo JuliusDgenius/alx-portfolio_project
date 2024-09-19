@@ -48,10 +48,85 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 30px;
 }
 
+.benefit-description ul, 
+.benefit-description ol {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.benefit-description li {
+    margin-bottom: 5px;
+}
+
+.benefit-description ul ul,
+.benefit-description ol ul,
+.benefit-description ul ol,
+.benefit-description ol ol {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.benefit-description > ol {
+    counter-reset: item;
+    list-style-type: none;
+}
+
+.benefit-description > ol > li {
+    counter-increment: item;
+    margin-bottom: 15px;
+}
+
+.benefit-description > ol > li:before {
+    content: counter(item) ". ";
+    font-weight: bold;
+}
+
+.benefit-requirement ul, 
+.benefit-requirement ol {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.benefit-requirement li {
+    margin-bottom: 5px;
+}
+
+.benefit-requirement ul ul,
+.benefit-requirement ol ul,
+.benefit-requirement ul ol,
+.benefit-requirement ol ol {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.benefit-requirement > ol {
+    counter-reset: item;
+    list-style-type: none;
+}
+
+.benefit-requirement > ol > li {
+    counter-increment: item;
+    margin-bottom: 15px;
+}
+
+.benefit-requirement > ol > li:before {
+    content: counter(item) ". ";
+    font-weight: bold;
+}
+
 /* Images */
-.banner, .account-img, .article-img {
+.banner, .account-img {
   width: 100%;
   height: auto;
+  object-fit: cover;
+}
+
+.benefit-img {
+  width: 80%;
+g height: 420px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  margin-top: 20px;
   object-fit: cover;
 }
 
@@ -82,10 +157,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .feature-img {
-  width: 120px;
-  height: 120px;
-  border-radius: 60px;
+  width: 80%;
+  height: 390px;
+  border-radius: 5px;
   margin-bottom: 20px;
+  object-fit: cover;
 }
 
 .feature h3 {
@@ -125,6 +201,23 @@ h1, h2, h3, h4, h5, h6 {
 .about-section p {
   font-size: 1.1rem;
   line-height: 1.8;
+}
+
+ul, ol {
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+li {
+    margin-bottom: 5px;
 }
 
 /* Footer */

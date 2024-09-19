@@ -30,7 +30,7 @@ def save_picture(form_picture):
                                 'static/uploads', picture_filename)
     print(f"Saving picture to: {picture_path}", flush=True)
 
-    output_size = (150, 150)
+    output_size = (512, 512)
     try:
         image = Image.open(form_picture)
     except Exception as e:

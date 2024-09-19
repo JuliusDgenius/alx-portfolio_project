@@ -7,7 +7,16 @@ from flask_login import current_user, login_required
 from benefitsHub import db
 from benefitsHub.models.base_model import Benefit, User
 from benefitsHub.benefits.forms import BenefitForm
-from benefitsHub.benefits.utils import linkify, save_picture
+from benefitsHub.benefits.utils import save_picture
+from markdown import markdown
+from bleach.sanitizer import Cleaner
+from bleach.linkifier import LinkifyFilter
+
+cleaner = Cleaner(tags=['p', 'br', 'ul', 'ol', 'li', 'a'],
+                  filters=[LinkifyFilter])
+
+def linkify(text):
+    return cleaner.clean(text)
 
 
 # Create a Blueprint for benefits
@@ -27,14 +36,16 @@ def new_benefit():
             benefit_image = picture_file
 
         # Apply linkify to description and requirement
-        description_linkified = linkify(form.description.data)
-        requirement_linkified = linkify(form.benefit_requirement.data)
+        description_linkified = linkify(markdown(form.description.data, extensions=['extra']))
+        sanitized_description = cleaner.clean(description_linkified)
+        requirement_linkified = linkify(markdown(form.benefit_requirement.data, extensions=['extra']))
+        sanitized_requirement = cleaner.clean(requirement_linkified)
 
         # Create a new Benefit object
         benefit = Benefit(name=form.name.data,
-                          description=description_linkified,
+                          description=sanitized_description,
                           benefit_image=str(picture_file),
-                          benefit_requirement=requirement_linkified,
+                          benefit_requirement=sanitized_requirement,
                           benefit_link=form.benefit_link.data,
                           benefit_start_date=form.benefit_start_date.data,
                           benefit_end_date=form.benefit_end_date.data,
@@ -49,7 +60,7 @@ def new_benefit():
         return redirect(url_for('benefits.user_benefits',
                                 username=current_user.username))
     # Generate URL for the benefit image
-    image_file = url_for('static', filename='uploads/' + str(picture_file))
+    image_file = url_for('static', filename='uploads/' + (picture_file if picture_file else 'default.jpeg'))
     return render_template('create_benefit.html', title='New Benefit',
                            image_file=image_file, form=form)
 
@@ -74,11 +85,9 @@ def user_benefits(username):
 @benefits.route("/explore_benefits")
 def explore_benefits():
     """Route to view all benefits"""
-    page = request.args.get('page', type=int)
+    page = request.args.get('page', 1,  type=int)
     # Query all benefits, ordered by creation date
-    benefits = Benefit.query\
-        .order_by(Benefit.benefit_created_on
-                  .desc()).paginate(page=page, per_page=10)
+    benefits = Benefit.query.order_by(Benefit.benefit_created_on.desc()).paginate(page=page, per_page=10)
     return render_template('explore_benefits.html',
                            benefits=benefits, title='Explore Benefits')
 
@@ -105,7 +114,9 @@ def update_benefit(benefit_id):
     if form.validate_on_submit():
         # Update benefit fields with form data
         benefit.name = form.name.data
-        benefit.benefit_image = form.benefit_image.data
+        if form.benefit_image.data:
+            picture_file = save_picture(form.benefit_image.data)
+            benefit.benefit_image = picture_file
         benefit.benefit_requirement = form.benefit_requirement.data
         benefit.description = form.description.data
         benefit.benefit_link = form.benefit_link.data

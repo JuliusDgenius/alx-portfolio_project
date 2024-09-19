@@ -1,7 +1,7 @@
 """
 This module defines the forms for the application.
 """
-from wtforms import StringField, SubmitField, DateField, SelectField
+from wtforms import (StringField, SubmitField, DateField, SelectField, TextAreaField)
 from wtforms.validators import DataRequired
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
@@ -10,11 +10,11 @@ from flask_wtf.file import FileField, FileAllowed
 class BenefitForm(FlaskForm):
     """Class to create a new benefit"""
     name = StringField('Name', validators=[DataRequired()])
-    description = StringField('Description', validators=[DataRequired()])
+    description = TextAreaField('Description (Use * for bullet points or 1. for numbering)', validators=[DataRequired()])
     benefit_image = FileField('Benefit Image',
                               validators=[FileAllowed(['jpg',
                                                        'jpeg', 'png'])])
-    benefit_requirement = StringField('Benefit Requirement',
+    benefit_requirement = TextAreaField('Benefit Requirement (Use * for bullet points or 1. for numbering)',
                                       validators=[DataRequired()])
     benefit_link = StringField('Benefit Link', validators=[DataRequired()])
     benefit_start_date = DateField('Benefit Start Date',

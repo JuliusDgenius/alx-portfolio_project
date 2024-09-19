@@ -4,37 +4,45 @@
     <div class="row">
         {% for benefit in benefits.items %}
             <div class="col-12 col-md-6 mb-4 media benefit-card">
-              	 <div class="media-body">
-		  <h2><a class="anchor-tag" href="{{ url_for('benefits.benefit', benefit_id=benefit.id) }}"> {{ benefit.name }}</a></h2>
-              <div class="media">
-                <img class="img-fluid" src="{{ url_for('static', filename='uploads/' + benefit.benefit_image) }}" alt="Image of benefit">
-              </div>
-              <h5>Description</h5>
-              <p class="text-start">{{ benefit.description | safe }}</p>
-              <h5>Requirement</h5>
-              <p class="text-start">{{ benefit.benefit_requirement | safe }}</p>
-              <div article-metadata>
-                <a class="mb-3 anchor-tag" href="{{ url_for('benefits.user_benefits', username=benefit.benefit_created_by) }}">Post By {{ benefit.benefit_created_by }}</a> On {{ benefit.benefit_created_on.strftime('%Y-%m-%d') }}<br>
-                <small class="text-muted">
-                  Start Date: {{ benefit.benefit_start_date.strftime('%Y-%m-%d') }}<br>
-                  End Date: {{ benefit.benefit_end_date.strftime('%Y-%m-%d') }}
-                </small>
-                {{benefit.id}}
-              </div>
-              <button data-link="{{ benefit.benefit_link }}" class="btn btn-primary apply-button">Apply</button>
-              </div>
+                <div class="media-body">
+                    <h2><a class="anchor-tag" href="{{ url_for('benefits.benefit', benefit_id=benefit.id) }}">{{ benefit.name }}</a></h2>
+                    <div class="media">
+			{% if benefit.benefit_image %}
+    				<img class="img-fluid benefit-img" src="{{ url_for('static', filename='uploads/' + benefit.benefit_image) }}" alt="Image of benefit">
+			{% else %}
+    				<img class="img-fluid benefit-img" src="{{ url_for('static', filename='uploads/default.jpeg') }}" alt="Default benefit image">
+			{% endif %}
+                    </div>
+                    <h5>Description</h5>
+		    <div class="benefit-description">
+                    	{{ benefit.description | safe }}
+		    </div>
+                    <h5>Requirement</h5>
+		    <div class="benefit-requirement">
+                    	{{ benefit.benefit_requirement | safe }}
+		    </div>
+                    <div class="article-metadata">
+                        <a class="mb-3 anchor-tag" href="{{ url_for('benefits.user_benefits', username=benefit.benefit_created_by) }}">Post By {{ benefit.benefit_created_by }}</a> On {{ benefit.benefit_created_on.strftime('%Y-%m-%d') }}<br>
+                        <small class="text-muted">
+                            Start Date: {{ benefit.benefit_start_date.strftime('%Y-%m-%d') }}<br>
+                            End Date: {{ benefit.benefit_end_date.strftime('%Y-%m-%d') }}
+                        </small>
+                        {{benefit.id}}
+                    </div>
+                    <button data-link="{{ benefit.benefit_link }}" class="btn btn-primary apply-button">Apply</button>
+                </div>
             </div>
         {% endfor %}
     </div>
     {% for page_num in benefits.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-      {% if page_num %}
-        {% if benefits.page == page_num %}
-          <a class="btn btn-info mb-4" href="{{ url_for('benefits.explore_benefits', page=page_num) }}">{{ page_num }}</a>
+        {% if page_num %}
+            {% if benefits.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('benefits.explore_benefits', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('benefits.explore_benefits', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
         {% else %}
-          <a class="btn btn-outline-info mb-4" href="{{ url_for('benefits.explore_benefits', page=page_num) }}">{{ page_num }}</a>
+            ...
         {% endif %}
-      {% else %}
-        ...
-      {% endif %}
     {% endfor %}
 {% endblock content %}
