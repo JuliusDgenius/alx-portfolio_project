@@ -103,6 +103,8 @@ class Post(db.Model):
     """Post model"""
     # Primary key for the post
     id = db.Column(db.Integer, primary_key=True)
+    # Post image
+    post_image = db.Column(db.String(255), default=True)
     # Title of the post
     title = db.Column(db.String(20), unique=True, nullable=False)
     # Content of the post

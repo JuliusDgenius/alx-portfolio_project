@@ -19,15 +19,21 @@ def new_post():
     """Function to create a new post"""
     form = MakePostForm()
     if form.validate_on_submit():
+        picture_file = None
+        # Save the post image if provided
+        if form.post_image.data:
+            picture_file = save_picture(form.post_image.data)
         post = Post(title=form.title.data,
                     content=form.content.data,
                     author=current_user.username,
-                    user_id=current_user.id)
+                    user_id=current_user.id,
+                    post_image = picture_file)
         db.session.add(post)
         db.session.commit()
         flash(f'Post {form.title.data} has been created!', 'success')
         return redirect(url_for('posts.view_posts'))
-    return render_template('create_post.html', title='New Post', form=form)
+    post_image = url_for('static', filename='uploads/' + (picture_file if picture_file else 'default.jpeg'))
+    return render_template('create_post.html', title='New Post', form=form, post_image=post_image)
 
 
 @posts.route("/view_posts", methods=['GET', 'POST'])
@@ -55,12 +61,16 @@ def update_post(post_id):
         abort(403)
     form = MakePostForm()
     if form.validate_on_submit():
+        if form.post_image.data:
+            picture_file = save_picture(form.post_image.data)
+            post.post_image = picture_file
         post.title = form.title.data
         post.content = form.content.data
         db.session.commit()
         flash('Your post has been updated!', 'success')
         return redirect(url_for('posts.post', post_id=post.id))
     elif request.method == 'GET':
+        form.post_image.data = post.post_image
         form.title.data = post.title
         form.content.data = post.content
     return render_template('create_post.html',
