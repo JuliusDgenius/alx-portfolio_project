@@ -18,53 +18,23 @@ function linkify(text) {
   });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  console.log('DOM Content Loaded');
-  const coverImageElement = document.getElementById('coverImage');
-  if (!coverImageElement) {
-      console.error('Cover image element not found');
-      return;
-  }
-  console.log('Cover image element found');
+let slideIndex = 0;
+showSlides();
 
-  console.log('coverImages:', coverImages);
+function showSlides() {
+  let slides = document.getElementsByClassName("slide");
 
-  let currentIndex = 0;
-  function changeCoverPhoto() {
-      if (!coverImageElement) return;
-
-      coverImageElement.style.opacity = '0';
-      
-      setTimeout(() => {
-          currentIndex = (currentIndex + 1) % coverImages.length;
-          coverImageElement.src = coverImages[currentIndex];
-          coverImageElement.style.opacity = '1';
-      }, 500);
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
   }
 
-  // Set initial image
-  // Check if coverImages is defined in the global scope
-  if (typeof coverImages !== 'undefined' && Array.isArray(coverImages) && coverImages.length > 0) {
-      coverImageElement.src = coverImages[currentIndex];
-  } else {
-      console.error('coverImages is not defined or is empty');
-      // Fallback to a default image or handle the error as needed
-      coverImageElement.src = '/static/assets/cover-images/cover-image_1.jpeg'; // Adjust the path as necessary
-      return;
+  slideIndex++;
+
+  if (slideIndex > slides.length) {
+    slideIndex = 1;
   }
 
-  // Change image every 5 seconds
-  let imageChangeInterval = setInterval(changeCoverPhoto, 5000);
+  slides[slideIndex - 1].style.display = "block";
 
-  // Add error handling for image loading
-  coverImageElement.onerror = function() {
-      console.error('Failed to load image:', coverImages[currentIndex]);
-      currentIndex = (currentIndex + 1) % coverImages.length;
-      coverImageElement.src = coverImages[currentIndex];
-  };
-
-  // Clean up interval on page unload
-  window.addEventListener('unload', function() {
-      clearInterval(imageChangeInterval);
-  });
-});
+  setTimeout(showSlides, 2000); // Change the interval as needed
+}

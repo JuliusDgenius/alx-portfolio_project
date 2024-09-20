@@ -8,6 +8,7 @@ from benefitsHub import db
 from benefitsHub.models.base_model import Post
 from benefitsHub.posts.forms import MakePostForm
 import os
+from benefitsHub.posts.utils import save_picture
 
 
 posts = Blueprint('posts', __name__)
@@ -18,11 +19,12 @@ posts = Blueprint('posts', __name__)
 def new_post():
     """Function to create a new post"""
     form = MakePostForm()
+    picture_file = None
     if form.validate_on_submit():
-        picture_file = None
         # Save the post image if provided
         if form.post_image.data:
             picture_file = save_picture(form.post_image.data)
+            post_image = picture_file
         post = Post(title=form.title.data,
                     content=form.content.data,
                     author=current_user.username,
@@ -32,8 +34,8 @@ def new_post():
         db.session.commit()
         flash(f'Post {form.title.data} has been created!', 'success')
         return redirect(url_for('posts.view_posts'))
-    post_image = url_for('static', filename='uploads/' + (picture_file if picture_file else 'default.jpeg'))
-    return render_template('create_post.html', title='New Post', form=form, post_image=post_image)
+    image_file = url_for('static', filename='post_uploads/' + (picture_file if picture_file else 'default.jpeg'))
+    return render_template('create_post.html', title='New Post', form=form, image_file=image_file)
 
 
 @posts.route("/view_posts", methods=['GET', 'POST'])

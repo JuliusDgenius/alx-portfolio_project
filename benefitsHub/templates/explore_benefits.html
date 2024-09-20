@@ -3,7 +3,7 @@
     <h1>Explore All Benefits</h1>
     <div class="row">
         {% for benefit in benefits.items %}
-            <div class="col-12 col-md-6 mb-4 media benefit-card">
+            <div class="col-12 col-md-6 mb-4 media content-section">
                 <div class="media-body">
                     <h2><a class="anchor-tag" href="{{ url_for('benefits.benefit', benefit_id=benefit.id) }}">{{ benefit.name }}</a></h2>
                     <div class="media">
@@ -14,15 +14,16 @@
 			{% endif %}
                     </div>
                     <h5>Description</h5>
-		    <div class="benefit-description">
-                    	{{ benefit.description | safe }}
-		    </div>
+		    <div class="">
+                    	{{ benefit.description | nl2br | safe }}
+		    </div><br>
                     <h5>Requirement</h5>
-		    <div class="benefit-requirement">
-                    	{{ benefit.benefit_requirement | safe }}
-		    </div>
-                    <div class="article-metadata">
-                        <a class="mb-3 anchor-tag" href="{{ url_for('benefits.user_benefits', username=benefit.benefit_created_by) }}">Post By {{ benefit.benefit_created_by }}</a> On {{ benefit.benefit_created_on.strftime('%Y-%m-%d') }}<br>
+	    <div class="benefit-requirement text-start">
+                    	{{ benefit.benefit_requirement | nl2br | safe }}
+	    </div><br>
+                    <div class="">
+                          <a class="mb-3 anchor-tag" href="{{ url_for('benefits.user_benefits', username=benefit.benefit_created_by) }}">Post By {{ benefit.benefit_created_by }}</a> On {{ benefit.benefit_created_on.strftime('%Y-%m-%d') }}<br>
+			<span class="mb-3">Post By: Unable to display user</span>
                         <small class="text-muted">
                             Start Date: {{ benefit.benefit_start_date.strftime('%Y-%m-%d') }}<br>
                             End Date: {{ benefit.benefit_end_date.strftime('%Y-%m-%d') }}

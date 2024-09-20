@@ -13,14 +13,14 @@
         {% endif %}
       </div>
       <div>
-	{% if benefit.benefit_image %}
+	{% if post.post_image %}
     		<img class="img-fluid benefit-img" src="{{ url_for('static', filename='uploads/' + post.post_image) }}" alt="Post picture">
 	{% else %}
     		<img class="img-fluid benefit-img" src="{{ url_for('static', filename='uploads/default.jpeg') }}" alt="Default post image">
 	{% endif %}
       </div>
       <h2 class="article-title text-start">{{ post.title }}</h2>
-      <p class="article-content text-start">{{ post.content }}</p>
+      <div class="article-content text-start">{{ post.content | nl2br | safe }}</div>
     </div>
   </article>
   <!-- Modal -->

@@ -2,13 +2,30 @@
 {% block content %}
     <!-- Intro Section -->
     <section id="intro" class="intro-section">
-        <div class="intro-content">
-		<img class="banner" src="{{ url_for('static', filename='/assets/cover-images/cover-image_5.jpeg') }}" alt="Cover Image"> 
-	    <h1 class="text-success">BenefitsHub Nigeria</h1>
-            <h6>Your one-stop hub for government benefits in Nigeria.</h6>
-            <a href="{{ url_for('benefits.explore_benefits') }}" class="btn-primary">Explore Benefits</a>
+	<div class="slide-show-container">
+	     <div class="slide fade">
+		<img class="banner" src="{{ url_for('static', filename='/assets/cover-images/cover-image_1.jpeg') }}" alt="Cover Image">
+	     </div>
+	     <div class="slide fade">
+		<img class="banner" src="{{ url_for('static', filename='/assets/cover-images/cover-image_2.jpeg') }}" alt="Cover Image"> 
+	     </div>
+	     <div class="slide fade">
+		<img class="banner" src="{{ url_for('static', filename='/assets/cover-images/cover-image_3.jpeg') }}" alt="Cover Image"> 
+	     </div>
+	     <div class="slide fade">
+		<img class="banner" src="{{ url_for('static', filename='/assets/cover-images/cover-image_4.jpeg') }}" alt="Cover Image"> 
+	     </div>
+	    <div class="slide fade">
+		<img class="banner" src="{{ url_for('static', filename='/assets/cover-images/cover-image_5.jpeg') }}" alt="Cover Image">
+	    </div>
         </div>
     </section>
+
+    <div class="intro-section">
+            <h1 class="text-success">BenefitsHub Nigeria</h1>
+            <h6>Your one-stop hub for government benefits in Nigeria.</h6>
+            <a href="{{ url_for('benefits.explore_benefits') }}" class="btn-primary">Explore Benefits</a>
+    </div>
 
    <!-- Feature Section -->
     <section id="features" class="row features">

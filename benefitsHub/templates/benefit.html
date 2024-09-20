@@ -7,15 +7,15 @@
         On <small class="text-muted">{{ benefit.benefit_created_on.strftime('%Y-%m-%d') }}</small>
       </div>
         <h2 class="article-title">{{ benefit.name }}</h2>
-	<div>
-           <h3 class="text-danger">Description</h3>
-	   {{ benefit.description }}
+	<h3>Description</h3>
+	<div class="benefit-description text-start">
+	   {{ benefit.description | nl2br | safe }}
 	</div>
       <div class="mb-3">
 	 <img class="benefit-img" src="{{ url_for('static', filename= 'uploads/' + benefit.benefit_image) }}" alt="Image of benefit">
-      <div>
-        <h3 class="text-danger">Requirement</h3>
-        {{ benefit.benefit_requirement }}
+      <h3>Requirement</h3>
+      <div class="benefit-requirement text-start">
+        {{ benefit.benefit_requirement | nl2br | safe }}
       </div>
       </div>
       {% if benefit.benefit_created_by == current_user.username %}
