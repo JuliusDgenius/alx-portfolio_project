@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   height: 100vh;
   overflow: hidden;
-  background: lightblue url('/static/assets/logo.jpg') no-repeat fixed center;
+  background: lightblue url('/static/assets/logo.jpg') no-repeat scroll center;
   background-size: cover;
 }
 
@@ -124,6 +124,12 @@ h1, h2, h3, h4, h5, h6 {
   .slideshow-container,
   .slide {
     height: 50vh;
+  }
+
+  .slide img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
   }
 
   .intro-content {
