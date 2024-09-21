@@ -5,7 +5,7 @@
         {% for benefit in benefits.items %}
             <div class="col-12 col-md-6 mb-4 media content-section">
                 <div class="media-body">
-                    <h2><a class="anchor-tag" href="{{ url_for('benefits.benefit', benefit_id=benefit.id) }}">{{ benefit.name }}</a></h2>
+                    <h2><a href="{{ url_for('benefits.benefit', benefit_id=benefit.id) }}">{{ benefit.name }}</a></h2>
                     <div class="media">
 			{% if benefit.benefit_image %}
     				<img class="img-fluid benefit-img" src="{{ url_for('static', filename='uploads/' + benefit.benefit_image) }}" alt="Image of benefit">
@@ -18,17 +18,19 @@
                     	{{ benefit.description | nl2br | safe }}
 		    </div><br>
                     <h5>Requirement</h5>
-	    <div class="benefit-requirement text-start">
-                    	{{ benefit.benefit_requirement | nl2br | safe }}
-	    </div><br>
+                    <div class="benefit-requirement text-start">
+                        {{ benefit.benefit_requirement | nl2br | safe }}
+                    </div><br>
                     <div class="">
+                        {% if benefit.benefit_created_by %}
                           <a class="mb-3 anchor-tag" href="{{ url_for('benefits.user_benefits', username=benefit.benefit_created_by) }}">Post By {{ benefit.benefit_created_by }}</a> On {{ benefit.benefit_created_on.strftime('%Y-%m-%d') }}<br>
-			<span class="mb-3">Post By: Unable to display user</span>
+                        {% else %}
+                          <span class="mb-3">Post By: Unable to display user</span>
+                        {% endif %}
                         <small class="text-muted">
                             Start Date: {{ benefit.benefit_start_date.strftime('%Y-%m-%d') }}<br>
                             End Date: {{ benefit.benefit_end_date.strftime('%Y-%m-%d') }}
                         </small>
-                        {{benefit.id}}
                     </div>
                     <button data-link="{{ benefit.benefit_link }}" class="btn btn-primary apply-button">Apply</button>
                 </div>

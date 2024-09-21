@@ -56,6 +56,10 @@ h1, h2, h3, h4, h5, h6 {
    background-color: black;
 }
 
+.intro-div p {
+  color: white;
+}
+
 .intro-content {
   position: absolute;
   top: 50%;
@@ -158,6 +162,16 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
+}
+
+.content-section a {
+  color: #2ecc71;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.content-section a:hover {
+  color: #27ae60;
 }
 
 /* Features Section */
