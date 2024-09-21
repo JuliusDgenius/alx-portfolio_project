@@ -6,12 +6,14 @@
             <div class="article-metadata">
               <a class="mr-2 anchor-tag" href="{{ url_for('users.user_posts', username=post.author) }}">{{ post.author }}</a>
               <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
-            </div>
-            {% if post.post_image %}
-              <img src="{{ url_for('static', filename='post_uploads/' + post.post_image) }}" alt="Post image" class="img-fluid post-image">
-	    {% else %}
-	    	<img src="{{ url_for('static', filename='post_uploads/default.jpeg') }}" alt="Post image" class="img-fluid post-image">
-            {% endif %}
+            </div><br>
+            <div class="post-image-container">
+              {% if post.post_image %}
+                <img src="{{ url_for('static', filename='post_uploads/' + post.post_image) }}" alt="Post image" class="img-fluid post-image">
+              {% else %}
+                <img src="{{ url_for('static', filename='post_uploads/default.jpeg') }}" alt="Post image" class="img-fluid post-image">
+              {% endif %}
+            </div><br>
             <h2><a class="article-title text-start" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
             <div class="article-content text-start">
 		{{ post.content | nl2br | safe}}

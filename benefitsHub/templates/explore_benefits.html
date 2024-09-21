@@ -14,7 +14,7 @@
 			{% endif %}
                     </div>
                     <h5>Description</h5>
-		    <div class="">
+		    <div class="benefit-description text-start">
                     	{{ benefit.description | nl2br | safe }}
 		    </div><br>
                     <h5>Requirement</h5>
@@ -23,7 +23,7 @@
                     </div><br>
                     <div class="">
                         {% if benefit.benefit_created_by %}
-                          <a class="mb-3 anchor-tag" href="{{ url_for('benefits.user_benefits', username=benefit.benefit_created_by) }}">Post By {{ benefit.benefit_created_by }}</a> On {{ benefit.benefit_created_on.strftime('%Y-%m-%d') }}<br>
+                          <a class="mb-3" href="{{ url_for('benefits.user_benefits', username=benefit.benefit_created_by) }}">Post By {{ benefit.benefit_created_by }}</a> On {{ benefit.benefit_created_on.strftime('%Y-%m-%d') }}<br>
                         {% else %}
                           <span class="mb-3">Post By: Unable to display user</span>
                         {% endif %}

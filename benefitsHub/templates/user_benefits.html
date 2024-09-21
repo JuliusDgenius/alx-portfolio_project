@@ -9,9 +9,9 @@
                     <img class="img-fluid" src="{{ url_for('static', filename='uploads/' + benefit.benefit_image) }}" alt="Benefit image">
                 </div>
                 <h5>Description</h5>
-                <div class="text-start">{{ benefit.description | nl2br | safe }}</div>
+                <div class="benefit-description text-start">{{ benefit.description | nl2br | safe }}</div>
                 <h5>Requirement</h5>
-                <div class="text-start">{{ benefit.benefit_requirement | nl2br | safe }}</div>
+                <div class="benefit-requirement text-start">{{ benefit.benefit_requirement | nl2br | safe }}</div>
                 <p>
                     Posted on: <span>{{ benefit.benefit_start_date.strftime('%Y-%m-%d') }}</span><br>
                     Ends on: <span>{{ benefit.benefit_end_date.strftime('%Y-%m-%d') }}</span>
